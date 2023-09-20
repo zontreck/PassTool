@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using LibZNI;
+using LibAC;
 
 
 namespace PassTool
@@ -56,6 +56,9 @@ namespace PassTool
             {
                 bool found = false;
                 long VAL = X;
+
+                int tries = 0; // MAX TRIES = 255
+                
                 while (!found)
                 {
                     while (VAL > MAX)
@@ -63,7 +66,7 @@ namespace PassTool
                         VAL = VAL >> 2;
                     }
 
-                    if (VAL < MAX && VAL > MIN && !used.Contains(VAL) && !BLACKLIST.Contains(VAL))
+                    if (VAL < MAX && VAL > MIN && !used.Contains(VAL) && !BLACKLIST.Contains(VAL) || tries > 255 && !BLACKLIST.Contains(VAL))
                     {
                         used.Add(VAL);
                         // OK
@@ -120,6 +123,8 @@ namespace PassTool
                         VAL += (seed & 1 | 2 | 4 | 8 | 16 | 32 | 64 | 128 | 256);
                         VAL += source[P];
                         seed += (source[P] * P);
+
+                        tries++;
                     }
                 }
                 

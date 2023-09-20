@@ -81,8 +81,6 @@
         </Options>
       </Configuration>
 
-      
-      <PackageReference name="MySqlConnector" version="2.2.7" />
       <PackageReference name="Newtonsoft.Json" version="13.0.3" />
     </Project>
     
@@ -98,7 +96,7 @@
           <GenerateDocumentation>True</GenerateDocumentation>
           <DebugInformation>True</DebugInformation>
           <UseDependencyFile>True</UseDependencyFile>
-          <SelfContained>True</SelfContained>
+          <SelfContained>False</SelfContained>
           <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
           <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
         </Options>
@@ -111,7 +109,7 @@
           <OutputPath>../../bin/release</OutputPath>
           <GenerateDocumentation>True</GenerateDocumentation>
           <UseDependencyFile>True</UseDependencyFile>
-          <SelfContained>True</SelfContained>
+          <SelfContained>False</SelfContained>
           <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
           <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
         </Options>
@@ -133,7 +131,7 @@
           <GenerateDocumentation>True</GenerateDocumentation>
           <DebugInformation>True</DebugInformation>
           <UseDependencyFile>True</UseDependencyFile>
-          <SelfContained>True</SelfContained>
+          <SelfContained>False</SelfContained>
           <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
           <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
         </Options>
@@ -146,7 +144,7 @@
           <OutputPath>../../bin/release</OutputPath>
           <GenerateDocumentation>True</GenerateDocumentation>
           <UseDependencyFile>True</UseDependencyFile>
-          <SelfContained>True</SelfContained>
+          <SelfContained>False</SelfContained>
           <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
           <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
         </Options>
