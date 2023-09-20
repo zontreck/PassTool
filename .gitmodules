@@ -1,3 +1,6 @@
 [submodule "Prebuild"]
 	path = Prebuild
 	url = git@github.com:zontreck/Prebuild
+[submodule "LibZNI"]
+	path = LibZNI
+	url = git@github.com:zontreck/LibZNI
