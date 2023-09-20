@@ -1,0 +1,42 @@
+<Prebuild version="1.10" xmlns="http://dnpb.sourceforge.net/schemas/prebuild-1.10.xsd">
+  <Solution name="PassTool" version="1.0" frameworkVersion="net7_0">
+    <Project name="PassTool" path="source/tool" icon="" language="C#" type="WinExe" copyDependencies="False"  winforms="True">
+      <Configuration name="Debug" platform="AnyCPU">
+        <Options>
+          <OptimizeCode>True</OptimizeCode>
+          <CheckUnderflowOverflow>True</CheckUnderflowOverflow>
+          <AllowUnsafe>True</AllowUnsafe>
+          <OutDir>bin/</OutDir>
+          <EnableDefaultItems>True</EnableDefaultItems>
+          <UseCommonOutputDirectory>False</UseCommonOutputDirectory>
+          <AppendTargetFrameworkToOutputPath>True</AppendTargetFrameworkToOutputPath>
+          <AppendRuntimeIdentifierToOutputPath>True</AppendRuntimeIdentifierToOutputPath>
+          <OutputPath>../../bin/</OutputPath>
+          <GenerateDocumentation>True</GenerateDocumentation>
+          <DebugInformation>True</DebugInformation>
+          <UseDependencyFile>True</UseDependencyFile>
+          <SelfContained>True</SelfContained>
+          <UseRuntimeIdentifier>False</UseRuntimeIdentifier>
+        </Options>
+      </Configuration>
+      <Configuration name="Release" platform="AnyCPU">
+        <Options>
+          <OptimizeCode>True</OptimizeCode>
+          <AllowUnsafe>True</AllowUnsafe>
+          <OutDir>bin/</OutDir>
+          <EnableDefaultItems>True</EnableDefaultItems>
+          <UseCommonOutputDirectory>False</UseCommonOutputDirectory>
+          <AppendTargetFrameworkToOutputPath>True</AppendTargetFrameworkToOutputPath>
+          <AppendRuntimeIdentifierToOutputPath>True</AppendRuntimeIdentifierToOutputPath>
+          <OutputPath>../../bin/</OutputPath>
+          <GenerateDocumentation>True</GenerateDocumentation>
+          <UseDependencyFile>True</UseDependencyFile>
+          <SelfContained>True</SelfContained>
+          <UseRuntimeIdentifier>False</UseRuntimeIdentifier>
+        </Options>
+      </Configuration>
+      
+      
+    </Project>
+  </Solution>
+</Prebuild>
