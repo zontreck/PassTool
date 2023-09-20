@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CS.TPEventsBus.Attributes;
 using Prebuild.Core.Utilities;
 
+[assembly:EventBusBroadcastable()]
 namespace PassTool
 {
     public class Program

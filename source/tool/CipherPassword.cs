@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using CS.TPEventsBus;
 using LibAC;
 
 
@@ -58,9 +61,12 @@ namespace PassTool
                 long VAL = X;
 
                 int tries = 0; // MAX TRIES = 255
+                Thread.Sleep(5);
                 
                 while (!found)
                 {
+                    Thread.Sleep(25);
+                    
                     while (VAL > MAX)
                     {
                         VAL = VAL >> 2;
@@ -71,6 +77,8 @@ namespace PassTool
                         used.Add(VAL);
                         // OK
                         found = true;
+
+                        EventBus.Broadcast(new CipherTickEvent(makePass(pwd.Take(P).ToList()), length));
                         //Console.Write((char)(int)VAL);
                         break;
                     }
@@ -122,7 +130,14 @@ namespace PassTool
 
                         VAL += (seed & 1 | 2 | 4 | 8 | 16 | 32 | 64 | 128 | 256);
                         VAL += source[P];
-                        seed += (source[P] * P);
+                        try
+                        {
+                            seed += (source[P] * P);
+
+                        }catch(Exception e)
+                        {
+                            seed /= (source[P]);
+                        }
 
                         tries++;
                     }
@@ -133,8 +148,15 @@ namespace PassTool
                 P++;
             }
 
+            string ret = makePass(pwd);
+            EventBus.Broadcast(new CipherTickEvent(ret, length));
+            return ret;
+        }
+
+        public static string makePass(List<long> pwd)
+        {
             string ret = "";
-            foreach(long X in pwd)
+            foreach (long X in pwd)
             {
                 char V = (char)(int)X;
                 ret += V;

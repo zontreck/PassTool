@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CS.TPEventsBus;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,19 +14,20 @@ namespace PassTool.GUI
     public partial class PassTool : Form
     {
         private About abt = new About();
-
+        public bool Ready;
 
         public PassTool()
         {
             InitializeComponent();
 
             trackBar1.Maximum = int.MaxValue;
-            trackBar1.Minimum = int.MinValue;
+            trackBar1.Minimum = 0;
             numericUpDown2.Maximum = 40;
             numericUpDown2.Minimum = 1;
             numericUpDown1.Maximum = int.MaxValue;
-            numericUpDown1.Minimum = int.MinValue;
+            numericUpDown1.Minimum = 0;
 
+            progressBar1.Value = 0;
             trackBar2.Maximum = 40;
             trackBar2.Minimum = 1;
 
@@ -37,7 +39,25 @@ namespace PassTool.GUI
             numericUpDown1.Value = trackBar1.Value;
             numericUpDown2.Value = trackBar2.Value;
 
+            Shown += PassTool_Shown;
+            Invalidated += PassTool_Invalidated;
 
+            Paint += PassTool_Paint;
+        }
+
+        private void PassTool_Paint(object sender, PaintEventArgs e)
+        {
+            Ready = true;
+        }
+
+        private void PassTool_Invalidated(object sender, InvalidateEventArgs e)
+        {
+            Ready = false;
+        }
+
+        private void PassTool_Shown(object sender, EventArgs e)
+        {
+            Ready = true;
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -54,7 +74,6 @@ namespace PassTool.GUI
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
             numericUpDown1.Value = trackBar1.Value;
-            recalculate();
         }
 
 
@@ -75,7 +94,6 @@ namespace PassTool.GUI
         {
             numericUpDown2.Value = trackBar2.Value;
             progressBar1.Maximum = trackBar2.Value;
-            recalculate();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -86,7 +104,7 @@ namespace PassTool.GUI
         private void recalculate()
         {
 
-            textBox2.Text = CipherPassword.Manipulate(textBox1.Text, (long)numericUpDown1.Value, (int)numericUpDown2.Value);
+            //textBox2.Text = CipherPassword.Manipulate(textBox1.Text, (long)numericUpDown1.Value, (int)numericUpDown2.Value);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -115,6 +133,27 @@ namespace PassTool.GUI
 
             CipherPassword.BLACKLIST.Add((long)item);
             recalculate();
+        }
+
+        [Subscribe(Priority.Very_High)]
+        public static void onCipherTick(CipherTickEvent e)
+        {
+            if (Program.PassTool != null && Program.PassTool.textBox2 != null)
+            {
+
+                Program.PassTool.textBox2.Text = e.Pass;
+                Program.PassTool.progressBar1.Value = e.Pass.Length;
+
+                if (Program.PassTool.Ready)
+                    Program.PassTool.Refresh();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(textBox2.Text, TextDataFormat.Text);
+
+            MessageBox.Show("Password copied to clipboard");
         }
     }
 }

@@ -48,6 +48,7 @@
             textBox3 = new System.Windows.Forms.TextBox();
             button2 = new System.Windows.Forms.Button();
             progressBar1 = new System.Windows.Forms.ProgressBar();
+            button3 = new System.Windows.Forms.Button();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
@@ -171,10 +172,11 @@
             // textBox2
             // 
             textBox2.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            textBox2.Location = new System.Drawing.Point(248, 395);
+            textBox2.Location = new System.Drawing.Point(248, 406);
             textBox2.Name = "textBox2";
-            textBox2.Size = new System.Drawing.Size(540, 43);
+            textBox2.Size = new System.Drawing.Size(421, 43);
             textBox2.TabIndex = 10;
+            textBox2.Text = "PLACEHOLDER";
             // 
             // listBox1
             // 
@@ -231,13 +233,29 @@
             progressBar1.Location = new System.Drawing.Point(12, 491);
             progressBar1.Name = "progressBar1";
             progressBar1.Size = new System.Drawing.Size(783, 41);
+            progressBar1.Step = 1;
+            progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             progressBar1.TabIndex = 16;
+            progressBar1.Value = 50;
+            // 
+            // button3
+            // 
+            button3.Font = new System.Drawing.Font("Ink Free", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            button3.Location = new System.Drawing.Point(675, 406);
+            button3.Name = "button3";
+            button3.Size = new System.Drawing.Size(113, 43);
+            button3.TabIndex = 17;
+            button3.Text = "Copy";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // PassTool
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            AutoSize = true;
             ClientSize = new System.Drawing.Size(807, 544);
+            Controls.Add(button3);
             Controls.Add(progressBar1);
             Controls.Add(button2);
             Controls.Add(textBox3);
@@ -256,7 +274,11 @@
             Controls.Add(label1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
+            MaximizeBox = false;
             Name = "PassTool";
+            Opacity = 0.9D;
+            RightToLeft = System.Windows.Forms.RightToLeft.No;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Password Tool";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
@@ -290,5 +312,6 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Button button3;
     }
 }

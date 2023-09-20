@@ -55,7 +55,7 @@
       </Files>
     </Project>
 
-    <Project name="LibAC" path="LibZNI" type="Library">
+    <Project name="LibAC" path="LibAC" type="Library">
       <Configuration name="Debug">
         <Options>
           <OptimizeCode>False</OptimizeCode>
@@ -83,7 +83,7 @@
 
       <PackageReference name="Newtonsoft.Json" version="13.0.3" />
     </Project>
-    
+
     <Project name="PassTool" path="source/tool" icon="" language="C#" type="Exe"
       copyDependencies="False">
       <Configuration name="Debug" platform="AnyCPU">
@@ -116,7 +116,8 @@
       </Configuration>
 
       <Reference name="Prebuild" />
-      <Reference name="LibAC"/>
+      <Reference name="LibAC" />
+      <Reference name="CS.TPEventsBus" />
 
     </Project>
     <Project name="PassTool.GUI" path="source/gui" icon="" language="C#" type="Exe"
@@ -150,7 +151,35 @@
         </Options>
       </Configuration>
 
-      <Reference name="PassTool"/>
+      <Reference name="PassTool" />
+      <Reference name="CS.TPEventsBus" />
+
+    </Project>
+    <Project name="CS.TPEventsBus" path="CS.TPEventsBus/source" type="Library">
+      <Configuration name="Debug">
+        <Options>
+          <OptimizeCode>False</OptimizeCode>
+          <EnableDefaultItems>True</EnableDefaultItems>
+          <UseCommonOutputDirectory>False</UseCommonOutputDirectory>
+          <OutputPath>../../bin/debug</OutputPath>
+          <UseDependencyFile>True</UseDependencyFile>
+          <SelfContained>False</SelfContained>
+          <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+          <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
+        </Options>
+      </Configuration>
+      <Configuration name="Release">
+        <Options>
+          <OptimizeCode>True</OptimizeCode>
+          <EnableDefaultItems>True</EnableDefaultItems>
+          <UseCommonOutputDirectory>False</UseCommonOutputDirectory>
+          <OutputPath>../../bin/release</OutputPath>
+          <UseDependencyFile>True</UseDependencyFile>
+          <SelfContained>False</SelfContained>
+          <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+          <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
+        </Options>
+      </Configuration>
 
     </Project>
 
