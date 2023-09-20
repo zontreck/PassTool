@@ -104,7 +104,7 @@ namespace PassTool.GUI
         private void recalculate()
         {
 
-            //textBox2.Text = CipherPassword.Manipulate(textBox1.Text, (long)numericUpDown1.Value, (int)numericUpDown2.Value);
+            textBox2.Text = CipherPassword.Manipulate(textBox1.Text, (long)numericUpDown1.Value, (int)numericUpDown2.Value);
         }
 
         private void button1_Click(object sender, EventArgs e)

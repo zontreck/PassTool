@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-//[assembly:EventBusBroadcastable()]
+[assembly:EventBusBroadcastable()]
 namespace PassTool.GUI
 {
     public class Program
