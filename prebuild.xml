@@ -84,7 +84,6 @@
       
       <PackageReference name="MySqlConnector" version="2.2.7" />
       <PackageReference name="Newtonsoft.Json" version="13.0.3" />
-      <PackageReference name="System.Threading.Channels" version="7.0.0" />
     </Project>
     
     <Project name="PassTool" path="source/tool" icon="" language="C#" type="Exe"
@@ -126,7 +125,7 @@
       copyDependencies="False" winforms="True">
       <Configuration name="Debug" platform="AnyCPU">
         <Options>
-          <OptimizeCode>True</OptimizeCode>
+          <OptimizeCode>False</OptimizeCode>
           <CheckUnderflowOverflow>True</CheckUnderflowOverflow>
           <EnableDefaultItems>True</EnableDefaultItems>
           <UseCommonOutputDirectory>False</UseCommonOutputDirectory>

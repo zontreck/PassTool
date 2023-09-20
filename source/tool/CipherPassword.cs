@@ -11,10 +11,12 @@ namespace PassTool
 {
     public class CipherPassword
     {
+        public static List<long> BLACKLIST = new();
+
         public static string Manipulate(string rawText, long seed, int length=16)
         {
             
-            var result = Encoding.UTF8.GetBytes(Tools.ZHX(rawText));
+            var result = Encoding.UTF8.GetBytes(Tools.ZHS(rawText, length));
 
 
             long oldSeed = seed;
@@ -58,10 +60,10 @@ namespace PassTool
                 {
                     while (VAL > MAX)
                     {
-                        VAL = VAL >> 1;
+                        VAL = VAL >> 2;
                     }
 
-                    if (VAL < MAX && VAL > MIN && !used.Contains(VAL))
+                    if (VAL < MAX && VAL > MIN && !used.Contains(VAL) && !BLACKLIST.Contains(VAL))
                     {
                         used.Add(VAL);
                         // OK
@@ -73,16 +75,16 @@ namespace PassTool
                     {
                         if ((seed & 1) == 1)
                         {
-                            VAL += 8;
+                            VAL += VAL % 2;
                         }
                         if ((seed & 2) == 2)
                         {
-                            VAL += 1;
+                            VAL += VAL % 3;
                         }
 
                         if ((seed & 4) == 4)
                         {
-                            VAL += 16;
+                            VAL += VAL % 4;
                         }
 
                         if ((seed & 8) == 8)
@@ -97,22 +99,27 @@ namespace PassTool
 
                         if ((seed & 32) == 32)
                         {
-                            VAL += 5;
+                            VAL += seed;
                         }
 
                         if ((seed & 64) == 64)
                         {
-                            VAL += 1;
+                            VAL += VAL % 10;
                         }
 
                         if ((seed & 128) == 128)
                         {
-                            VAL += 3;
+                            VAL /= 2;
+                        }
+
+                        if((seed & 256) == 256)
+                        {
+                            VAL /= 3;
                         }
 
                         VAL += (seed & 1 | 2 | 4 | 8 | 16 | 32 | 64 | 128 | 256);
                         VAL += source[P];
-                        seed += (long)source[P];
+                        seed += (source[P] * P);
                     }
                 }
                 

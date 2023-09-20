@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,14 +10,11 @@ using System.Windows.Forms;
 
 namespace PassTool.GUI
 {
-    public class Program
+    public partial class About : Form
     {
-
-        public static int Main(string[] args)
+        public About()
         {
-            Application.Run(new PassTool());
-            
-            return 0;
+            InitializeComponent();
         }
     }
 }

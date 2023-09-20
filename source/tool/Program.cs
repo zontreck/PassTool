@@ -11,6 +11,7 @@ namespace PassTool
     {
         public static int Main(string[] args)
         {
+            //var debugArgs = new string[] { "/cipher", "This is a test", "/length", "20", "/seed", "154368288" };
             var arguments = new CommandLineCollection(args);
 
             Random rng = new Random();
