@@ -1,42 +1,162 @@
 <Prebuild version="1.10" xmlns="http://dnpb.sourceforge.net/schemas/prebuild-1.10.xsd">
   <Solution name="PassTool" version="1.0" frameworkVersion="net7_0">
-    <Project name="PassTool" path="source/tool" icon="" language="C#" type="WinExe" copyDependencies="False"  winforms="True">
-      <Configuration name="Debug" platform="AnyCPU">
+    <Options>
+      <AllowUnsafe>True</AllowUnsafe>
+      <UseRuntimeIdentifier>False</UseRuntimeIdentifier>
+    </Options>
+
+    <Project name="Prebuild"
+      path="Prebuild/source/Prebuild"
+      language="C#"
+      assemblyName="prebuild"
+      icon="App.ico"
+      type="Exe"
+      version="2.0.10"
+    >
+      <Author>Matthew Holmes (matthew@wildfiregames.com)</Author>
+      <Author>Dan Moorehead (dan05a@gmail.com)</Author>
+      <Author>Dave Hudson (jendave@yahoo.com)</Author>
+      <Author>Rob Loach (http://robloach.net)</Author>
+      <Author>C.J. Adams-Collier (cjac@colliertech.org)</Author>
+      <Author>John Hurliman (john.hurliman@intel.com)</Author>
+      <Author>WhiteCore build (2015) Rowan Deppeler (greythan@gmail.com)</Author>
+      <Author>OpenSimulator build (2017) AJLDuarte</Author>
+      <Author>Tara Piccari</Author>
+      <Description>The Prebuild project generator</Description>
+      <Configuration name="Debug">
         <Options>
-          <OptimizeCode>True</OptimizeCode>
-          <CheckUnderflowOverflow>True</CheckUnderflowOverflow>
-          <AllowUnsafe>True</AllowUnsafe>
-          <OutDir>bin/</OutDir>
+          <CompilerDefines>DEBUG;TRACE</CompilerDefines>
+          <OptimizeCode>false</OptimizeCode>
+          <OutputPath>../../../bin/debug</OutputPath>
+          <DebugInformation>true</DebugInformation>
+          <KeyFile>Prebuild.snk</KeyFile>
+          <SuppressWarnings>1595</SuppressWarnings>
+          <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+          <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
+        </Options>
+      </Configuration>
+      <Configuration name="Release">
+        <Options>
+          <CompilerDefines>TRACE</CompilerDefines>
+          <OutputPath>../../../bin/release</OutputPath>
+          <OptimizeCode>true</OptimizeCode>
+          <DebugInformation>false</DebugInformation>
+          <KeyFile>Prebuild.snk</KeyFile>
+          <SuppressWarnings>1595</SuppressWarnings>
+          <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+          <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
+        </Options>
+      </Configuration>
+      <Reference name="System.EnterpriseServices" />
+      <Files>
+        <Match pattern="App.ico" buildAction="EmbeddedResource" />
+        <Match path="data" pattern="prebuild-1.10.xsd" buildAction="EmbeddedResource" />
+        <Match path="data" pattern="autotools.xml" buildAction="EmbeddedResource" />
+      </Files>
+    </Project>
+
+    <Project name="LibAC" path="LibZNI" type="Library">
+      <Configuration name="Debug">
+        <Options>
+          <OptimizeCode>False</OptimizeCode>
           <EnableDefaultItems>True</EnableDefaultItems>
           <UseCommonOutputDirectory>False</UseCommonOutputDirectory>
-          <AppendTargetFrameworkToOutputPath>True</AppendTargetFrameworkToOutputPath>
-          <AppendRuntimeIdentifierToOutputPath>True</AppendRuntimeIdentifierToOutputPath>
-          <OutputPath>../../bin/</OutputPath>
+          <OutputPath>../bin/debug</OutputPath>
+          <UseDependencyFile>True</UseDependencyFile>
+          <SelfContained>False</SelfContained>
+          <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+          <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
+        </Options>
+      </Configuration>
+      <Configuration name="Release">
+        <Options>
+          <OptimizeCode>True</OptimizeCode>
+          <EnableDefaultItems>True</EnableDefaultItems>
+          <UseCommonOutputDirectory>False</UseCommonOutputDirectory>
+          <OutputPath>../bin/release</OutputPath>
+          <UseDependencyFile>True</UseDependencyFile>
+          <SelfContained>False</SelfContained>
+          <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+          <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
+        </Options>
+      </Configuration>
+
+      
+      <PackageReference name="MySqlConnector" version="2.2.7" />
+      <PackageReference name="Newtonsoft.Json" version="13.0.3" />
+      <PackageReference name="System.Threading.Channels" version="7.0.0" />
+    </Project>
+    
+    <Project name="PassTool" path="source/tool" icon="" language="C#" type="Exe"
+      copyDependencies="False">
+      <Configuration name="Debug" platform="AnyCPU">
+        <Options>
+          <OptimizeCode>False</OptimizeCode>
+          <CheckUnderflowOverflow>True</CheckUnderflowOverflow>
+          <EnableDefaultItems>True</EnableDefaultItems>
+          <UseCommonOutputDirectory>False</UseCommonOutputDirectory>
+          <OutputPath>../../bin/debug</OutputPath>
           <GenerateDocumentation>True</GenerateDocumentation>
           <DebugInformation>True</DebugInformation>
           <UseDependencyFile>True</UseDependencyFile>
           <SelfContained>True</SelfContained>
-          <UseRuntimeIdentifier>False</UseRuntimeIdentifier>
+          <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+          <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
         </Options>
       </Configuration>
       <Configuration name="Release" platform="AnyCPU">
         <Options>
           <OptimizeCode>True</OptimizeCode>
-          <AllowUnsafe>True</AllowUnsafe>
-          <OutDir>bin/</OutDir>
           <EnableDefaultItems>True</EnableDefaultItems>
           <UseCommonOutputDirectory>False</UseCommonOutputDirectory>
-          <AppendTargetFrameworkToOutputPath>True</AppendTargetFrameworkToOutputPath>
-          <AppendRuntimeIdentifierToOutputPath>True</AppendRuntimeIdentifierToOutputPath>
-          <OutputPath>../../bin/</OutputPath>
+          <OutputPath>../../bin/release</OutputPath>
           <GenerateDocumentation>True</GenerateDocumentation>
           <UseDependencyFile>True</UseDependencyFile>
           <SelfContained>True</SelfContained>
-          <UseRuntimeIdentifier>False</UseRuntimeIdentifier>
+          <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+          <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
         </Options>
       </Configuration>
-      
-      
+
+      <Reference name="Prebuild" />
+      <Reference name="LibAC"/>
+
     </Project>
+    <Project name="PassTool.GUI" path="source/gui" icon="" language="C#" type="Exe"
+      copyDependencies="False" winforms="True">
+      <Configuration name="Debug" platform="AnyCPU">
+        <Options>
+          <OptimizeCode>True</OptimizeCode>
+          <CheckUnderflowOverflow>True</CheckUnderflowOverflow>
+          <EnableDefaultItems>True</EnableDefaultItems>
+          <UseCommonOutputDirectory>False</UseCommonOutputDirectory>
+          <OutputPath>../../bin/debug</OutputPath>
+          <GenerateDocumentation>True</GenerateDocumentation>
+          <DebugInformation>True</DebugInformation>
+          <UseDependencyFile>True</UseDependencyFile>
+          <SelfContained>True</SelfContained>
+          <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+          <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
+        </Options>
+      </Configuration>
+      <Configuration name="Release" platform="AnyCPU">
+        <Options>
+          <OptimizeCode>True</OptimizeCode>
+          <EnableDefaultItems>True</EnableDefaultItems>
+          <UseCommonOutputDirectory>False</UseCommonOutputDirectory>
+          <OutputPath>../../bin/release</OutputPath>
+          <GenerateDocumentation>True</GenerateDocumentation>
+          <UseDependencyFile>True</UseDependencyFile>
+          <SelfContained>True</SelfContained>
+          <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+          <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
+        </Options>
+      </Configuration>
+
+      <Reference name="PassTool"/>
+
+    </Project>
+
+
   </Solution>
 </Prebuild>
