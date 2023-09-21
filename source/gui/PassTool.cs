@@ -220,6 +220,11 @@ namespace PassTool.GUI
         private void lengthBox_Leave(object sender, EventArgs e)
         {
             lengthBar.Value = int.Parse(lengthBox.Text);
+
+            progressBar1.Value = 0;
+            progressBar1.Maximum = lengthBar.Value;
+
+
             recalculate();
         }
     }
