@@ -110,7 +110,7 @@
       <PackageReference name="Newtonsoft.Json" version="13.0.3" />
     </Project>
 
-    <Project name="PassTool" path="source/tool" icon="" language="C#" type="Exe"
+    <Project name="PassTool" path="source/tool" icon="key.ico" language="C#" type="Exe"
       copyDependencies="False">
       <Configuration name="Debug" platform="AnyCPU">
         <Options>
