@@ -37,18 +37,29 @@ namespace PassTool
                 if (args.Length == 0) Console.WriteLine("Arguments were not supplied");
                 Console.WriteLine("" +
                     "PassTool\n" +
-                    "(c) 2023 Tara Piccari\n\n" +
+                    $"Version: {GitVersion.FullVersion}\n" +
+                    "(c) 2023 Tara Piccari\n" +
+                    "\n" +
                     "/cipher [text]             The ciphertext to transform\n" +
                     "/seed [number]             The seed used to transform the cipher\n" +
                     "/length [number]           The final length of the password\n" +
+                    "/silent                    Prevents printing out the parameters and version header along with the final password\n" +
                     "/usage                     Print this message\n\n");
 
                 return 1;
             }
 
-            Console.WriteLine($"CipherText: {cipher}");
-            Console.WriteLine($"Seed: {seed}");
-            Console.WriteLine($"Length: {len}");
+            if(!arguments.WasPassed("silent"))
+            {
+
+                Console.WriteLine("" +
+
+                        "PassTool\n" +
+                        $"Version: {GitVersion.FullVersion}\n\n");
+                Console.WriteLine($"CipherText: {cipher}");
+                Console.WriteLine($"Seed: {seed}");
+                Console.WriteLine($"Length: {len}");
+            }
             Console.WriteLine(CipherPassword.Manipulate(cipher, seed, len));
 
             return 0;
