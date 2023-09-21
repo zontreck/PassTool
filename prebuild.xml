@@ -5,6 +5,32 @@
       <UseRuntimeIdentifier>False</UseRuntimeIdentifier>
     </Options>
 
+    <Configuration name="Debug">
+      <Options>
+
+          <OptimizeCode>false</OptimizeCode>
+          <AllowUnsafe>true</AllowUnsafe>
+          <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+          <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+          <NoStdLib>false</NoStdLib>
+          <Prefer32Bit>false</Prefer32Bit>
+          <DebugInformation>true</DebugInformation>
+      </Options>
+  </Configuration>
+  <Configuration name="Release">
+      <Options>
+
+          <OptimizeCode>true</OptimizeCode>
+          <AllowUnsafe>true</AllowUnsafe>
+          <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+          <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+          <NoStdLib>false</NoStdLib>
+          <Prefer32Bit>false</Prefer32Bit>
+          <DebugInformation>false</DebugInformation>
+      </Options>
+  </Configuration>
+
+
     <Project name="Prebuild"
       path="Prebuild/source/Prebuild"
       language="C#"
@@ -169,6 +195,12 @@
         <Reference name="System.Diagnostics.Process" version="7.0.0.0" />
         <Reference name="System.Reflection" />
       </TextGen>
+
+
+      <Files>
+        <File buildAction="Compile" subType="Designer">PassTool.cs</File>
+        <File buildAction="Compile" subType="Designer">About.cs</File>
+      </Files>
 
     </Project>
     <Project name="CS.TPEventsBus" path="CS.TPEventsBus/source" type="Library">
