@@ -19,29 +19,20 @@ namespace PassTool.GUI
             Type = EntryType.Root
         };
 
+        [STAThread()]
         public static int Main(string[] args)
         {
             Session session = new Session();
             Hive=RegistryIO.loadHive("PassTool");
             
             token = new CancellationTokenSource();
-            Thread X = new Thread(() =>
-            {
-                Application.EnableVisualStyles();
+            Application.EnableVisualStyles();
 
-                passTool = new PassTool();
+            passTool = new PassTool();
 
-                Application.ApplicationExit += Application_ApplicationExit;
-                Application.Run(passTool);
+            Application.ApplicationExit += Application_ApplicationExit;
+            Application.Run(passTool);
 
-                token.Cancel();
-            });
-            X.Start();
-
-            while (!token.IsCancellationRequested)
-            {
-                Thread.Sleep(500);
-            }
             /*
             Application.Run(passTool);
             */

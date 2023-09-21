@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TP.CS.Registry;
+using System.Threading;
 
 namespace PassTool.GUI
 {
@@ -45,7 +46,7 @@ namespace PassTool.GUI
         {
             Random rng = new Random();
 
-
+            textBox1.Text = $"Hello PassTool";
 
             seedBar.Maximum = int.MaxValue;
             seedBar.Minimum = 0;
@@ -84,12 +85,26 @@ namespace PassTool.GUI
 
             }
 
-            if (!GUISettings.Instance.codec.New) listBox1.Items.Clear();
-            else listBox1.Items.AddRange(DEFAULT_BLACKLIST);
+            if (!GUISettings.Instance.codec.New)
+            {
+                listBox1.Items.Clear();
+            }
+            else
+            {
+                //listBox1.Items.AddRange(DEFAULT_BLACKLIST);
+
+                if (GUISettings.Instance.codec.saveBlacklist.Value)
+                {
+                    foreach(string x in DEFAULT_BLACKLIST)
+                    {
+                        GUISettings.Instance.codec.Blacklist.Add(x);
+                    }
+                }
+            }
 
             if (GUISettings.Instance.codec.saveBlacklist.Value)
             {
-
+                listBox1.Items.Clear();
                 foreach (string X in GUISettings.Instance.codec.Blacklist)
                 {
                     listBox1.Items.Add(X);
@@ -138,12 +153,35 @@ namespace PassTool.GUI
             recalculate();
         }
 
+        struct ThreadParams
+        {
+            public string rawText;
+            public int seed;
+            public int length;
+        }
+
         private void recalculate()
         {
 
             if (Ready)
             {
-                textBox2.Text = CipherPassword.Manipulate(textBox1.Text, (long)seedBar.Value, (int)lengthBar.Value);
+                ThreadParams para = new ThreadParams()
+                {
+                    rawText = textBox1.Text,
+                    seed = seedBar.Value,
+                    length = lengthBar.Value
+                };
+                Thread PROC = new Thread((parax) =>
+                {
+                    if(parax is ThreadParams par)
+                    {
+                        textBox2.Text = CipherPassword.Manipulate(par.rawText, par.seed, par.length);
+
+                    }
+                });
+                PROC.Start(para);
+
+                
 
                 if (GUISettings.Instance.codec.saveLength.Value)
                 {
@@ -153,6 +191,11 @@ namespace PassTool.GUI
                 {
                     GUISettings.Instance.codec.LastSeed.setInt32(seedBar.Value);
                 }
+
+                GUISettings.Instance.codec.saveSeed.setBool(saveSeedNotRecommendedToolStripMenuItem.Checked);
+                GUISettings.Instance.codec.saveLength.setBool(saveLastLengthToolStripMenuItem.Checked);
+                GUISettings.Instance.codec.saveBlacklist.setBool(saveBlacklistToolStripMenuItem.Checked);
+
 
 
                 RegistryIO.saveHive(Program.Hive, "PassTool");
@@ -204,12 +247,15 @@ namespace PassTool.GUI
             /**/
             if (Program.passTool != null && Program.passTool.textBox2 != null)
             {
+                Program.passTool.Invoke(() =>
+                {
 
-                Program.passTool.textBox2.Text = e.Pass;
-                Program.passTool.progressBar1.Value = e.Pass.Length;
+                    Program.passTool.textBox2.Text = e.Pass;
+                    Program.passTool.progressBar1.Value = e.Pass.Length;
 
-                if (Program.passTool.Ready)
-                    Program.passTool.Refresh();
+                    if (Program.passTool.Ready)
+                        Program.passTool.Refresh();
+                });
             }
             /**/
         }
@@ -311,8 +357,10 @@ namespace PassTool.GUI
             {
                 Type = EntryType.Root
             };
+            Program.Hive.MyRoot = Program.Hive;
 
             GUISettings.SettingsLoad(Program.Hive);
+            GUISettings.Instance.codec.New = true;
 
             LoadHive();
 

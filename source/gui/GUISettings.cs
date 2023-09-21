@@ -104,6 +104,8 @@ namespace PassTool.GUI
             key.Remove(OldBlacklist);
             Blacklist = new WordList("blacklist");
             CurVer.setInt32(3);
+
+            key.Add(Blacklist);
         }
 
         private void ActivateV4()
@@ -118,6 +120,7 @@ namespace PassTool.GUI
             key.Add(saveSeed);
             key.Add(saveLength);
             key.Add(saveBlacklist);
+            key.Add(LastSeed);
 
 
         }
