@@ -195,6 +195,7 @@
 
       <Reference name="PassTool" />
       <Reference name="CS.TPEventsBus" />
+      <Reference name="Newtonsoft.Json" version="13.0.3"/>
 
       <TextGen sourceInSolution="true" name="GitVersion.sw" output="Versions.cs">
         <Reference name="System" />
