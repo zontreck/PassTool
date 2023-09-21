@@ -4,3 +4,6 @@
 [submodule "LibAC"]
 	path = LibAC
 	url = git@github.com:zontreck/LibZNI
+[submodule "TP.CS.EventsBus"]
+	path = TP.CS.EventsBus
+	url = git@github.com:zontreck/TP.CS.EventsBus
