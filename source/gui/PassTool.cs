@@ -53,13 +53,11 @@ namespace PassTool.GUI
             progressBar1.Maximum = len;
             lengthBox.Text = len.ToString();
 
-            foreach(Entry X in GUISettings.Instance.codec.Blacklist)
+            foreach(string X in GUISettings.Instance.codec.Blacklist)
             {
-                if(X is Word w)
-                {
-                    listBox1.Items.Add(w.Value);
-                    CipherPassword.BLACKLIST.Add(w.Value[0]);
-                }
+                listBox1.Items.Add(X);
+                CipherPassword.BLACKLIST.Add(X[0]);
+                
             }
         }
 
@@ -120,7 +118,7 @@ namespace PassTool.GUI
 
 
                 CipherPassword.BLACKLIST.Remove(item[0]);
-                BlacklistUpdate();
+                GUISettings.Instance.codec.Blacklist.Remove(item);
 
                 listBox1.SelectedItem = null;
                 recalculate();
@@ -128,21 +126,6 @@ namespace PassTool.GUI
             /**/
         }
 
-        /// <summary>
-        /// This now will copy the blacklist over to the EntryList
-        /// </summary>
-        private void BlacklistUpdate()
-        {
-            GUISettings.Instance.codec.Blacklist.clear();
-
-            foreach(string v in listBox1.Items)
-            {
-                Word w = new Word("", v);
-                GUISettings.Instance.codec.Blacklist.Add(w);
-            }
-
-            GUISettings.Instance.codec.Blacklist.updateParents();
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -155,7 +138,8 @@ namespace PassTool.GUI
             textBox3.Text = "";
 
             CipherPassword.BLACKLIST.Add((long)item);
-            BlacklistUpdate();
+            GUISettings.Instance.codec.Blacklist.Add(textBox3.Text);
+            
 
             recalculate();
             /**/

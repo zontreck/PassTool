@@ -42,9 +42,10 @@ namespace PassTool.GUI
 
     public class GUISettingsCodec
     {
-        public const int VERSION = 2;
+        public const int VERSION = 3;
 
-        public EntryList<Word> Blacklist;
+        public EntryList<Word> OldBlacklist;
+        public WordList Blacklist;
         public VInt32 LastLength;
         public VInt32 CurVer;
 
@@ -68,6 +69,7 @@ namespace PassTool.GUI
         {
             ActivateV1();
             ActivateV2();
+            ActivateV3();
         }
 
         private void ActivateV1()
@@ -81,10 +83,17 @@ namespace PassTool.GUI
 
         private void ActivateV2()
         {
-            Blacklist = new EntryList<Word>("blacklist");
+            OldBlacklist = new EntryList<Word>("blacklist");
             CurVer.setInt32(2);
 
             key.Add(Blacklist);
+        }
+
+        private void ActivateV3()
+        {
+            key.Remove(OldBlacklist);
+            Blacklist = new WordList("blacklist");
+            CurVer.setInt32(3);
         }
 
         private void Load(int ver)
@@ -96,13 +105,23 @@ namespace PassTool.GUI
                         LastLength = key.getNamed("len").Int32();
                         CurVer = key.getNamed("version").Int32();
 
+                        ActivateV2();
                         break;
                     }
                 case 2:
                     {
                         LastLength = key.getNamed("len").Int32();
                         CurVer = key.getNamed("version").Int32();
-                        Blacklist = key.getNamed("blacklist").Array<Word>();
+                        OldBlacklist = key.getNamed("blacklist").Array<Word>();
+
+                        ActivateV3();
+                        break;
+                    }
+                case 3:
+                    {
+                        LastLength = key.getNamed("len").Int32();
+                        CurVer = key.getNamed("version").Int32();
+                        Blacklist = key.getNamed("blacklist").WordList();
 
                         break;
                     }
