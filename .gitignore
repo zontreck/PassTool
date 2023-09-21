@@ -406,3 +406,6 @@ bootstrap
 
 source/**/*.csproj
 *.sln
+
+*.SnapWrap.cs
+*.Bottle.cs
