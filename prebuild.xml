@@ -213,6 +213,8 @@
       <Files>
         <File buildAction="Compile" subType="Designer">PassTool.cs</File>
         <File buildAction="Compile" subType="Designer">About.cs</File>
+        <File buildAction="None" copyToOutput="Always">CARDC_.TTF</File>
+        <File buildAction="None" copyToOutput="Always">Inkfree.ttf</File>
       </Files>
 
     </Project>
