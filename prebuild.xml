@@ -151,7 +151,7 @@
 
       <Reference name="Prebuild" />
       <Reference name="LibAC" />
-      <Reference name="CS.TPEventsBus" />
+      <Reference name="TP.CS.EventsBus" />
 
       <TextGen sourceInSolution="true" name="GitVersion.sw" output="Versions.cs">
         <Reference name="System" />
@@ -194,7 +194,7 @@
       </Configuration>
 
       <Reference name="PassTool" />
-      <Reference name="CS.TPEventsBus" />
+      <Reference name="TP.CS.EventsBus" />
       <Reference name="Newtonsoft.Json" version="13.0.3"/>
 
       <TextGen sourceInSolution="true" name="GitVersion.sw" output="Versions.cs">
@@ -212,7 +212,7 @@
       </Files>
 
     </Project>
-    <Project name="CS.TPEventsBus" path="CS.TPEventsBus/source" type="Library">
+    <Project name="TP.CS.EventsBus" path="TP.CS.EventsBus/source" type="Library">
       <Configuration name="Debug">
         <Options>
           <OptimizeCode>False</OptimizeCode>
