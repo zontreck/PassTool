@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using CS.TPEventsBus;
+using TP.CS.EventsBus;
 using LibAC;
 
 

@@ -21,6 +21,7 @@
           <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
           <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
           <NoStdLib>false</NoStdLib>
+          <UseDependencyFile>False</UseDependencyFile>
           <Prefer32Bit>false</Prefer32Bit>
           <DebugInformation>true</DebugInformation>
       </Options>
@@ -33,6 +34,7 @@
           <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
           <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
           <NoStdLib>false</NoStdLib>
+          <UseDependencyFile>False</UseDependencyFile>
           <Prefer32Bit>false</Prefer32Bit>
           <DebugInformation>false</DebugInformation>
       </Options>
@@ -63,6 +65,7 @@
           <OptimizeCode>false</OptimizeCode>
           <OutputPath>../../../bin/debug</OutputPath>
           <DebugInformation>true</DebugInformation>
+          <UseDependencyFile>False</UseDependencyFile>
           <KeyFile>Prebuild.snk</KeyFile>
           <SuppressWarnings>1595</SuppressWarnings>
           <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
@@ -75,6 +78,7 @@
           <OutputPath>../../../bin/release</OutputPath>
           <OptimizeCode>true</OptimizeCode>
           <DebugInformation>false</DebugInformation>
+          <UseDependencyFile>False</UseDependencyFile>
           <KeyFile>Prebuild.snk</KeyFile>
           <SuppressWarnings>1595</SuppressWarnings>
           <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
@@ -96,7 +100,7 @@
           <EnableDefaultItems>True</EnableDefaultItems>
           <UseCommonOutputDirectory>False</UseCommonOutputDirectory>
           <OutputPath>../bin/debug</OutputPath>
-          <UseDependencyFile>True</UseDependencyFile>
+          <UseDependencyFile>False</UseDependencyFile>
           <SelfContained>False</SelfContained>
           <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
           <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
@@ -108,7 +112,7 @@
           <EnableDefaultItems>True</EnableDefaultItems>
           <UseCommonOutputDirectory>False</UseCommonOutputDirectory>
           <OutputPath>../bin/release</OutputPath>
-          <UseDependencyFile>True</UseDependencyFile>
+          <UseDependencyFile>False</UseDependencyFile>
           <SelfContained>False</SelfContained>
           <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
           <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
@@ -129,7 +133,7 @@
           <OutputPath>../../bin/debug</OutputPath>
           <GenerateDocumentation>True</GenerateDocumentation>
           <DebugInformation>True</DebugInformation>
-          <UseDependencyFile>True</UseDependencyFile>
+          <UseDependencyFile>False</UseDependencyFile>
           <SelfContained>False</SelfContained>
           <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
           <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
@@ -142,7 +146,7 @@
           <UseCommonOutputDirectory>False</UseCommonOutputDirectory>
           <OutputPath>../../bin/release</OutputPath>
           <GenerateDocumentation>True</GenerateDocumentation>
-          <UseDependencyFile>True</UseDependencyFile>
+          <UseDependencyFile>False</UseDependencyFile>
           <SelfContained>False</SelfContained>
           <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
           <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
@@ -173,7 +177,7 @@
           <OutputPath>../../bin/debug</OutputPath>
           <GenerateDocumentation>True</GenerateDocumentation>
           <DebugInformation>True</DebugInformation>
-          <UseDependencyFile>True</UseDependencyFile>
+          <UseDependencyFile>False</UseDependencyFile>
           <SelfContained>False</SelfContained>
           <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
           <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
@@ -186,7 +190,7 @@
           <UseCommonOutputDirectory>False</UseCommonOutputDirectory>
           <OutputPath>../../bin/release</OutputPath>
           <GenerateDocumentation>True</GenerateDocumentation>
-          <UseDependencyFile>True</UseDependencyFile>
+          <UseDependencyFile>False</UseDependencyFile>
           <SelfContained>False</SelfContained>
           <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
           <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
@@ -194,8 +198,8 @@
       </Configuration>
 
       <Reference name="PassTool" />
+      <Reference name="TP.CS.Registry" />
       <Reference name="TP.CS.EventsBus" />
-      <Reference name="Newtonsoft.Json" version="13.0.3"/>
 
       <TextGen sourceInSolution="true" name="GitVersion.sw" output="Versions.cs">
         <Reference name="System" />
@@ -219,7 +223,7 @@
           <EnableDefaultItems>True</EnableDefaultItems>
           <UseCommonOutputDirectory>False</UseCommonOutputDirectory>
           <OutputPath>../../bin/debug</OutputPath>
-          <UseDependencyFile>True</UseDependencyFile>
+          <UseDependencyFile>False</UseDependencyFile>
           <SelfContained>False</SelfContained>
           <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
           <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
@@ -231,7 +235,7 @@
           <EnableDefaultItems>True</EnableDefaultItems>
           <UseCommonOutputDirectory>False</UseCommonOutputDirectory>
           <OutputPath>../../bin/release</OutputPath>
-          <UseDependencyFile>True</UseDependencyFile>
+          <UseDependencyFile>False</UseDependencyFile>
           <SelfContained>False</SelfContained>
           <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
           <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
@@ -240,6 +244,46 @@
 
     </Project>
 
+    <Project name="TP.CS.Registry" path="TP.CS.Registry/source" type="Library">
+      <Configuration name="Debug">
+        <Options>
+
+          <OptimizeCode>False</OptimizeCode>
+          <EnableDefaultItems>True</EnableDefaultItems>
+          <UseCommonOutputDirectory>False</UseCommonOutputDirectory>
+          <OutputPath>../../bin/debug</OutputPath>
+          <UseDependencyFile>False</UseDependencyFile>
+          <SelfContained>False</SelfContained>
+          <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+          <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
+        </Options>
+      </Configuration>
+      <Configuration name="Release">
+        <Options>
+
+          <OptimizeCode>True</OptimizeCode>
+          <EnableDefaultItems>True</EnableDefaultItems>
+          <UseCommonOutputDirectory>False</UseCommonOutputDirectory>
+          <OutputPath>../../bin/release</OutputPath>
+          <UseDependencyFile>False</UseDependencyFile>
+          <SelfContained>False</SelfContained>
+          <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+          <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
+        </Options>
+      </Configuration>
+
+
+      <Reference name="TP.CS.EventsBus" />
+      <PackageReference name="Newtonsoft.Json" version="13.0.3" />
+
+
+      <Files>
+        <File buildAction="None" copyToOutput="PreserveNewest">HSRD\HSRD.ico</File>
+        <File buildAction="None" copyToOutput="PreserveNewest">HSRD\HSRD_Icon.png</File>
+      </Files>
+
+      <TextGen name="Constants.json" output="Constants.cs" tool="Bottle" />
+    </Project>
 
   </Solution>
 </Prebuild>

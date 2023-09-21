@@ -42,7 +42,7 @@ catch (Exception ex)
 }
 Console.WriteLine();
 Console.WriteLine("using System.Reflection;");
-Console.WriteLine("using CS.TPEventsBus.Attributes;");
+Console.WriteLine("using TP.CS.EventsBus.Attributes;");
 Console.WriteLine("[assembly: EventBusBroadcastable()]");
 Console.WriteLine($"[assembly: AssemblyInformationalVersion(\"{versionInfo}.{patch}-{commitHash}\")]");
 Console.WriteLine($"[assembly: AssemblyVersion(\"{versionInfo}.{patch}.0\")]");

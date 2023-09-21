@@ -1,4 +1,4 @@
-﻿using CS.TPEventsBus.Attributes;
+﻿using TP.CS.EventsBus.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,4 @@
-﻿using CS.TPEventsBus;
+﻿using TP.CS.EventsBus;
 using Microsoft.VisualBasic.Devices;
 using Newtonsoft.Json;
 using System;
