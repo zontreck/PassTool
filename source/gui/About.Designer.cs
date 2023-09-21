@@ -32,6 +32,8 @@
             label2 = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
             linkLabel1 = new System.Windows.Forms.LinkLabel();
+            label4 = new System.Windows.Forms.Label();
+            label5 = new System.Windows.Forms.Label();
             SuspendLayout();
             // 
             // label1
@@ -79,12 +81,36 @@
             linkLabel1.TabStop = true;
             linkLabel1.Text = "https://github.com/zontreck/PassTool";
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new System.Drawing.Font("Ink Free", 11.9999981F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            label4.Location = new System.Drawing.Point(152, 80);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(102, 20);
+            label4.TabIndex = 5;
+            label4.Text = "Tara Piccari";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new System.Drawing.Font("Ink Free", 11.9999981F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            label5.Location = new System.Drawing.Point(12, 80);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(67, 20);
+            label5.TabIndex = 4;
+            label5.Text = "Version:";
+            // 
             // About
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.Teal;
             ClientSize = new System.Drawing.Size(426, 127);
+            Controls.Add(label4);
+            Controls.Add(label5);
             Controls.Add(linkLabel1);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -104,5 +130,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }

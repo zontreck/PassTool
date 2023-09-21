@@ -15,6 +15,8 @@ namespace PassTool.GUI
         public About()
         {
             InitializeComponent();
+
+            label4.Text = $"{GitVersion.FullVersion}";
         }
     }
 }
