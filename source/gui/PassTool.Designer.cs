@@ -30,6 +30,7 @@ namespace PassTool.GUI
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PassTool));
             menuStrip1 = new System.Windows.Forms.MenuStrip();
             fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -280,6 +281,7 @@ namespace PassTool.GUI
             Controls.Add(label4);
             Controls.Add(label3);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
             MaximizeBox = false;
             Name = "PassTool";
