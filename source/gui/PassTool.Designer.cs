@@ -9,6 +9,7 @@ namespace PassTool.GUI
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        private static object[] DEFAULT_BLACKLIST = new object[] { ",", ".", "'", "\"", "/", "\\", "|" };
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -33,6 +34,13 @@ namespace PassTool.GUI
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PassTool));
             menuStrip1 = new System.Windows.Forms.MenuStrip();
             fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            saveLastLengthToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            saveBlacklistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            saveSeedNotRecommendedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             label1 = new System.Windows.Forms.Label();
@@ -67,15 +75,64 @@ namespace PassTool.GUI
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { quitToolStripMenuItem });
+            fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { optionsToolStripMenuItem, quitToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             fileToolStripMenuItem.Text = "File";
             // 
+            // optionsToolStripMenuItem
+            // 
+            optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { saveLastLengthToolStripMenuItem, saveBlacklistToolStripMenuItem, toolStripSeparator1, resetToolStripMenuItem, toolStripSeparator2, saveSeedNotRecommendedToolStripMenuItem });
+            optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            optionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            optionsToolStripMenuItem.Text = "Options";
+            // 
+            // saveLastLengthToolStripMenuItem
+            // 
+            saveLastLengthToolStripMenuItem.Checked = true;
+            saveLastLengthToolStripMenuItem.CheckOnClick = true;
+            saveLastLengthToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            saveLastLengthToolStripMenuItem.Name = "saveLastLengthToolStripMenuItem";
+            saveLastLengthToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            saveLastLengthToolStripMenuItem.Text = "Save Last Length";
+            // 
+            // saveBlacklistToolStripMenuItem
+            // 
+            saveBlacklistToolStripMenuItem.Checked = true;
+            saveBlacklistToolStripMenuItem.CheckOnClick = true;
+            saveBlacklistToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            saveBlacklistToolStripMenuItem.Name = "saveBlacklistToolStripMenuItem";
+            saveBlacklistToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            saveBlacklistToolStripMenuItem.Text = "Save Blacklist";
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new System.Drawing.Size(238, 6);
+            // 
+            // resetToolStripMenuItem
+            // 
+            resetToolStripMenuItem.Name = "resetToolStripMenuItem";
+            resetToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            resetToolStripMenuItem.Text = "Reset";
+            resetToolStripMenuItem.Click += resetToolStripMenuItem_Click;
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new System.Drawing.Size(238, 6);
+            // 
+            // saveSeedNotRecommendedToolStripMenuItem
+            // 
+            saveSeedNotRecommendedToolStripMenuItem.CheckOnClick = true;
+            saveSeedNotRecommendedToolStripMenuItem.Name = "saveSeedNotRecommendedToolStripMenuItem";
+            saveSeedNotRecommendedToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            saveSeedNotRecommendedToolStripMenuItem.Text = "Save Seed (Not Recommended)";
+            // 
             // quitToolStripMenuItem
             // 
             quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            quitToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
+            quitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             quitToolStripMenuItem.Text = "Quit";
             quitToolStripMenuItem.Click += quitToolStripMenuItem_Click;
             // 
@@ -152,7 +209,7 @@ namespace PassTool.GUI
             listBox1.Location = new System.Drawing.Point(389, 261);
             listBox1.Name = "listBox1";
             listBox1.ScrollAlwaysVisible = true;
-            listBox1.Size = new System.Drawing.Size(117, 94);
+            listBox1.Size = new System.Drawing.Size(145, 124);
             listBox1.TabIndex = 11;
             // 
             // label5
@@ -317,5 +374,12 @@ namespace PassTool.GUI
         private System.Windows.Forms.TextBox seedBox;
         private System.Windows.Forms.TextBox lengthBox;
         private System.Windows.Forms.ProgressBar lengthBar;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveLastLengthToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveBlacklistToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem saveSeedNotRecommendedToolStripMenuItem;
     }
 }

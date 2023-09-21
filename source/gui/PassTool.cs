@@ -24,20 +24,6 @@ namespace PassTool.GUI
         {
             InitializeComponent();
 
-            seedBar.Maximum = int.MaxValue;
-            seedBar.Minimum = 0;
-            lengthBar.Minimum = 1;
-            lengthBar.Maximum = 40;
-
-
-
-            Random rng = new Random();
-
-            seedBar.Value = rng.Next(0, 0xFFFF);
-            seedBox.Text = $"{seedBar.Value}";
-            lengthBar.Value = 5;
-            lengthBox.Text = "5";
-            progressBar1.Value = 0;
 
             Shown += PassTool_Shown;
             Invalidated += PassTool_Invalidated;
@@ -47,17 +33,69 @@ namespace PassTool.GUI
 
 
             GUISettings.SettingsLoad(Program.Hive);
+            LoadHive();
+        }
 
-            int len = GUISettings.Instance.codec.LastLength.Value;
-            lengthBar.Value = len;
-            progressBar1.Maximum = len;
-            lengthBox.Text = len.ToString();
+        /// <summary>
+        /// Loads settings from the Hive
+        /// 
+        /// Also reasserts all defaults, may cause graphical inconsistencies. Caution is advised.
+        /// </summary>
+        public void LoadHive()
+        {
+            Random rng = new Random();
 
-            foreach(string X in GUISettings.Instance.codec.Blacklist)
+
+
+            seedBar.Maximum = int.MaxValue;
+            seedBar.Minimum = 0;
+            lengthBar.Minimum = 1;
+            lengthBar.Maximum = 40;
+
+            int seed = rng.Next(0, 0xFFFF);
+            if(GUISettings.Instance.codec.saveSeed.Value)
             {
-                listBox1.Items.Add(X);
-                CipherPassword.BLACKLIST.Add(X[0]);
-                
+                seed = GUISettings.Instance.codec.LastSeed.Value;
+            }
+            seedBar.Value = seed;
+            seedBox.Text = $"{seedBar.Value}";
+            lengthBar.Value = 5;
+            lengthBox.Text = "5";
+            progressBar1.Value = 0;
+
+            saveBlacklistToolStripMenuItem.Checked = GUISettings.Instance.codec.saveBlacklist.Value;
+            saveLastLengthToolStripMenuItem.Checked = GUISettings.Instance.codec.saveLength.Value;
+            saveSeedNotRecommendedToolStripMenuItem.Checked = GUISettings.Instance.codec.saveSeed.Value;
+
+            listBox1.Items.Clear();
+            listBox1.Items.AddRange(DEFAULT_BLACKLIST);
+
+
+            lengthBar.Value = 5;
+            lengthBox.Text = "5";
+            recalculate();
+
+            if (GUISettings.Instance.codec.saveLength.Value)
+            {
+                int len = GUISettings.Instance.codec.LastLength.Value;
+                lengthBar.Value = len;
+                progressBar1.Maximum = len;
+                lengthBox.Text = len.ToString();
+
+            }
+
+            if (!GUISettings.Instance.codec.New) listBox1.Items.Clear();
+            else listBox1.Items.AddRange(DEFAULT_BLACKLIST);
+
+            if (GUISettings.Instance.codec.saveBlacklist.Value)
+            {
+
+                foreach (string X in GUISettings.Instance.codec.Blacklist)
+                {
+                    listBox1.Items.Add(X);
+                    CipherPassword.BLACKLIST.Add(X[0]);
+
+                }
             }
         }
 
@@ -104,7 +142,21 @@ namespace PassTool.GUI
         {
 
             if (Ready)
+            {
                 textBox2.Text = CipherPassword.Manipulate(textBox1.Text, (long)seedBar.Value, (int)lengthBar.Value);
+
+                if (GUISettings.Instance.codec.saveLength.Value)
+                {
+                    GUISettings.Instance.codec.LastLength.setInt32(lengthBar.Value);
+                }
+                if (GUISettings.Instance.codec.saveSeed.Value)
+                {
+                    GUISettings.Instance.codec.LastSeed.setInt32(seedBar.Value);
+                }
+
+
+                RegistryIO.saveHive(Program.Hive, "PassTool");
+            }
             /**/
         }
 
@@ -116,9 +168,9 @@ namespace PassTool.GUI
                 string item = (string)listBox1.SelectedItem;
                 listBox1.Items.Remove(listBox1.SelectedItem);
 
-
+                if(GUISettings.Instance.codec.saveBlacklist.Value)
+                    GUISettings.Instance.codec.Blacklist.Remove(item);
                 CipherPassword.BLACKLIST.Remove(item[0]);
-                GUISettings.Instance.codec.Blacklist.Remove(item);
 
                 listBox1.SelectedItem = null;
                 recalculate();
@@ -138,8 +190,9 @@ namespace PassTool.GUI
             textBox3.Text = "";
 
             CipherPassword.BLACKLIST.Add((long)item);
-            GUISettings.Instance.codec.Blacklist.Add(textBox3.Text);
-            
+            if (GUISettings.Instance.codec.saveBlacklist.Value)
+                GUISettings.Instance.codec.Blacklist.Add(textBox3.Text);
+
 
             recalculate();
             /**/
@@ -249,6 +302,20 @@ namespace PassTool.GUI
             progressBar1.Maximum = lengthBar.Value;
 
             GUISettings.Instance.codec.LastLength.setInt32(lengthBar.Value);
+            recalculate();
+        }
+
+        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.Hive = new Key("root", null)
+            {
+                Type = EntryType.Root
+            };
+
+            GUISettings.SettingsLoad(Program.Hive);
+
+            LoadHive();
+
             recalculate();
         }
     }

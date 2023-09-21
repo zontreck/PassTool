@@ -27,7 +27,7 @@ namespace PassTool.GUI
             {
                 var settings = new Key("gui", null);
 
-                root.placeAtPath(KEY, settings);
+                root.placeAtPath(KEY.Substring(0, KEY.LastIndexOf("/")), settings);
             }
 
             x = root.getAtPath(KEY);
@@ -42,12 +42,20 @@ namespace PassTool.GUI
 
     public class GUISettingsCodec
     {
-        public const int VERSION = 3;
+        public const int VERSION = 4;
 
         public EntryList<Word> OldBlacklist;
         public WordList Blacklist;
         public VInt32 LastLength;
         public VInt32 CurVer;
+        public VInt32 LastSeed;
+
+
+        public VBool saveLength;
+        public VBool saveSeed;
+        public VBool saveBlacklist;
+
+        public bool New = true;
 
         private Key key;
         public GUISettingsCodec(Key key)
@@ -59,6 +67,7 @@ namespace PassTool.GUI
                 Initialize();
             }else
             {
+                New = false;
                 VInt32 ver = key.getNamed("version").Int32();
 
                 Load(ver.Value);
@@ -70,6 +79,7 @@ namespace PassTool.GUI
             ActivateV1();
             ActivateV2();
             ActivateV3();
+            ActivateV4();
         }
 
         private void ActivateV1()
@@ -86,7 +96,7 @@ namespace PassTool.GUI
             OldBlacklist = new EntryList<Word>("blacklist");
             CurVer.setInt32(2);
 
-            key.Add(Blacklist);
+            key.Add(OldBlacklist);
         }
 
         private void ActivateV3()
@@ -94,6 +104,22 @@ namespace PassTool.GUI
             key.Remove(OldBlacklist);
             Blacklist = new WordList("blacklist");
             CurVer.setInt32(3);
+        }
+
+        private void ActivateV4()
+        {
+            saveLength = new VBool("save_len", true);
+            saveBlacklist = new VBool("save_blacklist", true);
+            saveSeed = new VBool("save_seed", false);
+            LastSeed = new VInt32("last_seed", new Random().Next(0, 0xFFFF));
+
+            CurVer.setInt32(4);
+
+            key.Add(saveSeed);
+            key.Add(saveLength);
+            key.Add(saveBlacklist);
+
+
         }
 
         private void Load(int ver)
@@ -122,6 +148,22 @@ namespace PassTool.GUI
                         LastLength = key.getNamed("len").Int32();
                         CurVer = key.getNamed("version").Int32();
                         Blacklist = key.getNamed("blacklist").WordList();
+
+                        ActivateV4();
+                        break;
+
+                    }
+                case 4:
+                    {
+                        LastLength = key.getNamed("len").Int32();
+                        CurVer = key.getNamed("version").Int32();
+                        Blacklist = key.getNamed("blacklist").WordList();
+                        LastSeed = key.getNamed("last_seed").Int32();
+
+
+                        saveLength = key.getNamed("save_len").Bool();
+                        saveBlacklist = key.getNamed("save_blacklist").Bool();
+                        saveSeed = key.getNamed("save_seed").Bool();
 
                         break;
                     }
