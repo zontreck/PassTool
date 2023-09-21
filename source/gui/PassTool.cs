@@ -1,10 +1,12 @@
 ﻿using CS.TPEventsBus;
 using Microsoft.VisualBasic.Devices;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +18,7 @@ namespace PassTool.GUI
     {
         public bool Ready;
         public Point MousePosition;
+        public GUISettings Settings = new GUISettings();
 
         public PassTool()
         {
@@ -41,6 +44,20 @@ namespace PassTool.GUI
 
             Paint += PassTool_Paint;
             MouseMove += PassTool_MouseMove;
+
+
+            if(File.Exists("settings.json"))
+            {
+                Settings = JsonConvert.DeserializeObject<GUISettings>(File.ReadAllText("settings.json"));
+
+                foreach(string V in Settings.blacklist)
+                {
+                    listBox1.Items.Add(V);
+                }
+
+                lengthBar.Value = Settings.LastLength;
+                lengthBox.Text = Settings.LastLength.ToString();
+            }
         }
 
         private void PassTool_MouseMove(object sender, MouseEventArgs e)
@@ -95,11 +112,14 @@ namespace PassTool.GUI
             /**/
             if (listBox1.SelectedItem != null)
             {
-                char item = (char)((string)listBox1.SelectedItem)[0];
+                string item = (string)listBox1.SelectedItem);
                 listBox1.Items.Remove(listBox1.SelectedItem);
 
 
-                CipherPassword.BLACKLIST.Remove((long)item);
+                CipherPassword.BLACKLIST.Remove((long)item[0]);
+                Settings.blacklist.Remove(item);
+
+                File.WriteAllText("settings.json", JsonConvert.SerializeObject(Settings));
 
                 listBox1.SelectedItem = null;
                 recalculate();
@@ -114,10 +134,12 @@ namespace PassTool.GUI
 
             listBox1.Items.Add(textBox3.Text);
             char item = (char)textBox3.Text[0];
+
+            Settings.blacklist.Add(textBox3.Text);
             textBox3.Text = "";
 
-
             CipherPassword.BLACKLIST.Add((long)item);
+            File.WriteAllText("settings.json", JsonConvert.SerializeObject(Settings));
             recalculate();
             /**/
         }
@@ -207,6 +229,9 @@ namespace PassTool.GUI
             progressBar1.Value = 0;
             progressBar1.Maximum = val;
 
+            Settings.LastLength = val;
+
+            File.WriteAllText("settings.json", JsonConvert.SerializeObject(Settings));
 
             recalculate();
         }
@@ -223,8 +248,10 @@ namespace PassTool.GUI
 
             progressBar1.Value = 0;
             progressBar1.Maximum = lengthBar.Value;
+            Settings.LastLength = lengthBar.Value;
 
 
+            File.WriteAllText("settings.json", JsonConvert.SerializeObject(Settings));
             recalculate();
         }
     }
