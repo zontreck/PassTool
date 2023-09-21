@@ -154,8 +154,8 @@
       </TextGen>
 
     </Project>
-    <Project name="PassTool.GUI" path="source/gui" icon="" language="C#" type="Exe"
-      copyDependencies="False" winforms="True">
+    <Project name="PassTool.GUI" path="source/gui" language="C#" type="Exe"
+      copyDependencies="False" winforms="True" icon="key.ico">
       <Configuration name="Debug" platform="AnyCPU">
         <Options>
           <OptimizeCode>False</OptimizeCode>
