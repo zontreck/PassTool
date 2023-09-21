@@ -56,7 +56,9 @@ namespace PassTool.GUI
                 }
 
                 lengthBar.Value = Settings.LastLength;
+                progressBar1.Maximum = Settings.LastLength;
                 lengthBox.Text = Settings.LastLength.ToString();
+
             }
         }
 
@@ -112,7 +114,7 @@ namespace PassTool.GUI
             /**/
             if (listBox1.SelectedItem != null)
             {
-                string item = (string)listBox1.SelectedItem);
+                string item = (string)listBox1.SelectedItem;
                 listBox1.Items.Remove(listBox1.SelectedItem);
 
 
