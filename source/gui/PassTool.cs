@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TP.CS.Registry;
 
 namespace PassTool.GUI
 {
@@ -18,7 +19,6 @@ namespace PassTool.GUI
     {
         public bool Ready;
         public Point MousePosition;
-        public GUISettings Settings = new GUISettings();
 
         public PassTool()
         {
@@ -46,19 +46,20 @@ namespace PassTool.GUI
             MouseMove += PassTool_MouseMove;
 
 
-            if(File.Exists("settings.json"))
+            GUISettings.SettingsLoad(Program.Hive);
+
+            int len = GUISettings.Instance.codec.LastLength.Value;
+            lengthBar.Value = len;
+            progressBar1.Maximum = len;
+            lengthBox.Text = len.ToString();
+
+            foreach(Entry X in GUISettings.Instance.codec.Blacklist)
             {
-                Settings = JsonConvert.DeserializeObject<GUISettings>(File.ReadAllText("settings.json"));
-
-                foreach(string V in Settings.blacklist)
+                if(X is Word w)
                 {
-                    listBox1.Items.Add(V);
+                    listBox1.Items.Add(w.Value);
+                    CipherPassword.BLACKLIST.Add(w.Value[0]);
                 }
-
-                lengthBar.Value = Settings.LastLength;
-                progressBar1.Maximum = Settings.LastLength;
-                lengthBox.Text = Settings.LastLength.ToString();
-
             }
         }
 
@@ -118,15 +119,29 @@ namespace PassTool.GUI
                 listBox1.Items.Remove(listBox1.SelectedItem);
 
 
-                CipherPassword.BLACKLIST.Remove((long)item[0]);
-                Settings.blacklist.Remove(item);
-
-                File.WriteAllText("settings.json", JsonConvert.SerializeObject(Settings));
+                CipherPassword.BLACKLIST.Remove(item[0]);
+                BlacklistUpdate();
 
                 listBox1.SelectedItem = null;
                 recalculate();
             }
             /**/
+        }
+
+        /// <summary>
+        /// This now will copy the blacklist over to the EntryList
+        /// </summary>
+        private void BlacklistUpdate()
+        {
+            GUISettings.Instance.codec.Blacklist.clear();
+
+            foreach(string v in listBox1.Items)
+            {
+                Word w = new Word("", v);
+                GUISettings.Instance.codec.Blacklist.Add(w);
+            }
+
+            GUISettings.Instance.codec.Blacklist.updateParents();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -137,11 +152,11 @@ namespace PassTool.GUI
             listBox1.Items.Add(textBox3.Text);
             char item = (char)textBox3.Text[0];
 
-            Settings.blacklist.Add(textBox3.Text);
             textBox3.Text = "";
 
             CipherPassword.BLACKLIST.Add((long)item);
-            File.WriteAllText("settings.json", JsonConvert.SerializeObject(Settings));
+            BlacklistUpdate();
+
             recalculate();
             /**/
         }
@@ -231,9 +246,7 @@ namespace PassTool.GUI
             progressBar1.Value = 0;
             progressBar1.Maximum = val;
 
-            Settings.LastLength = val;
-
-            File.WriteAllText("settings.json", JsonConvert.SerializeObject(Settings));
+            GUISettings.Instance.codec.LastLength.setInt32(val);
 
             recalculate();
         }
@@ -250,10 +263,8 @@ namespace PassTool.GUI
 
             progressBar1.Value = 0;
             progressBar1.Maximum = lengthBar.Value;
-            Settings.LastLength = lengthBar.Value;
 
-
-            File.WriteAllText("settings.json", JsonConvert.SerializeObject(Settings));
+            GUISettings.Instance.codec.LastLength.setInt32(lengthBar.Value);
             recalculate();
         }
     }
