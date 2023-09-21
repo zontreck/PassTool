@@ -46,6 +46,7 @@ Console.WriteLine("using CS.TPEventsBus.Attributes;");
 Console.WriteLine("[assembly: EventBusBroadcastable()]");
 Console.WriteLine($"[assembly: AssemblyInformationalVersion(\"{versionInfo}.{patch}-{commitHash}\")]");
 Console.WriteLine($"[assembly: AssemblyVersion(\"{versionInfo}.{patch}.0\")]");
+Console.WriteLine($"[assembly: AssemblyCompany(\"ByteWave Labs\")]");
 Console.WriteLine($"\n" +
 "public static class GitVersion\n" +
 "{\n" +

@@ -5,6 +5,14 @@
       <UseRuntimeIdentifier>False</UseRuntimeIdentifier>
     </Options>
 
+    <Files>
+      <File buildAction="None">setup.cs</File>
+      <File buildAction="None">compile.bat</File>
+      <File buildAction="None">compile.sh</File>
+      <File buildAction="None">runprebuild.bat</File>
+      <File buildAction="None">runprebuild.sh</File>
+    </Files>
+
     <Configuration name="Debug">
       <Options>
 

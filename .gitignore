@@ -404,8 +404,12 @@ bootstrap/*.exe
 bootstrap/**
 bootstrap
 
+*.iss
+
 source/**/*.csproj
 *.sln
 
-*.SnapWrap.cs
 *.Bottle.cs
+*.SnapWrap.*
+
+setup/PassTool-setup.exe
