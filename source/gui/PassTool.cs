@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TP.CS.Registry;
 using System.Threading;
+using System.Runtime.InteropServices;
+using System.Drawing.Text;
 
 namespace PassTool.GUI
 {
@@ -21,10 +23,28 @@ namespace PassTool.GUI
         public bool Ready;
         public Point MousePosition;
 
+        public PrivateFontCollection Fonts = new();
+        public FontFamily INKFREE;
+        public FontFamily CARDS;
+
+
         public PassTool()
         {
+            INKFREE = LoadFont(EmbeddedFonts.Inkfree_ttf.Data, EmbeddedFonts.Inkfree_ttf.FamilyName);
+            CARDS = LoadFont(EmbeddedFonts.Cards_ttf.Data, EmbeddedFonts.Cards_ttf.FamilyName);
+
+
+            
+
             InitializeComponent();
 
+            Font = new Font(INKFREE, 10F, FontStyle.Regular);
+            button3.Font = new Font(INKFREE, 18F, FontStyle.Regular);
+            label1.Font = new Font(CARDS, 20F, FontStyle.Regular);
+            label2.Font = new Font(CARDS, 20F, FontStyle.Regular);
+            label3.Font = new Font(CARDS, 20F, FontStyle.Regular);
+            label4.Font = new Font(CARDS, 20F, FontStyle.Regular);
+            label5.Font = new Font(CARDS, 20F, FontStyle.Regular);
 
             Shown += PassTool_Shown;
             Invalidated += PassTool_Invalidated;
@@ -35,6 +55,27 @@ namespace PassTool.GUI
 
             GUISettings.SettingsLoad(Program.Hive);
             LoadHive();
+        }
+
+        /// <summary>
+        /// Loads a memory stream of serialized font data
+        /// </summary>
+        /// <param name="base64">The encoded font</param>
+        /// <returns></returns>
+        public FontFamily LoadFont(string base64, string FamilyName)
+        {
+            byte[] data = Convert.FromBase64String(base64);
+            IntPtr font = Marshal.AllocCoTaskMem(data.Length);
+
+            Marshal.Copy(data, 0, font, data.Length);
+            
+            Fonts.AddMemoryFont(font, data.Length);
+            Marshal.FreeCoTaskMem(font);
+
+            FontFamily family = new FontFamily(FamilyName, Fonts);
+
+
+            return family;
         }
 
         /// <summary>
@@ -139,7 +180,8 @@ namespace PassTool.GUI
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new About().Show();
+            About abt = new About(INKFREE);
+            abt.Show();
         }
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
