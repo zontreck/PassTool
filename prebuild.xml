@@ -119,6 +119,14 @@
       <Reference name="LibAC" />
       <Reference name="CS.TPEventsBus" />
 
+      <TextGen sourceInSolution="true" name="GitVersion.sw" output="Versions.cs">
+        <Reference name="System" />
+        <Reference name="System.Diagnostics" />
+        <Reference name="System.IO" />
+        <Reference name="System.Diagnostics.Process" version="7.0.0.0" />
+        <Reference name="System.Reflection" />
+      </TextGen>
+
     </Project>
     <Project name="PassTool.GUI" path="source/gui" icon="" language="C#" type="Exe"
       copyDependencies="False" winforms="True">
@@ -153,6 +161,14 @@
 
       <Reference name="PassTool" />
       <Reference name="CS.TPEventsBus" />
+
+      <TextGen sourceInSolution="true" name="GitVersion.sw" output="Versions.cs">
+        <Reference name="System" />
+        <Reference name="System.Diagnostics" />
+        <Reference name="System.IO" />
+        <Reference name="System.Diagnostics.Process" version="7.0.0.0" />
+        <Reference name="System.Reflection" />
+      </TextGen>
 
     </Project>
     <Project name="CS.TPEventsBus" path="CS.TPEventsBus/source" type="Library">

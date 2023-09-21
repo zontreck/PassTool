@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using CS.TPEventsBus.Attributes;
 using Prebuild.Core.Utilities;
 
-[assembly:EventBusBroadcastable()]
 namespace PassTool
 {
     public class Program

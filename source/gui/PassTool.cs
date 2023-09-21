@@ -1,4 +1,5 @@
 ﻿using CS.TPEventsBus;
+using Microsoft.VisualBasic.Devices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,36 +14,40 @@ namespace PassTool.GUI
 {
     public partial class PassTool : Form
     {
-        private About abt = new About();
         public bool Ready;
+        public Point MousePosition;
 
         public PassTool()
         {
             InitializeComponent();
 
-            trackBar1.Maximum = int.MaxValue;
-            trackBar1.Minimum = 0;
-            numericUpDown2.Maximum = 40;
-            numericUpDown2.Minimum = 1;
-            numericUpDown1.Maximum = int.MaxValue;
-            numericUpDown1.Minimum = 0;
-
-            progressBar1.Value = 0;
-            trackBar2.Maximum = 40;
-            trackBar2.Minimum = 1;
+            seedBar.Maximum = int.MaxValue;
+            seedBar.Minimum = 0;
+            lengthBar.Minimum = 1;
+            lengthBar.Maximum = 40;
 
 
 
             Random rng = new Random();
-            trackBar1.Value = rng.Next(0, 0xFFFF);
 
-            numericUpDown1.Value = trackBar1.Value;
-            numericUpDown2.Value = trackBar2.Value;
+            seedBar.Value = rng.Next(0, 0xFFFF);
+            seedBox.Text = $"{seedBar.Value}";
+            lengthBar.Value = 5;
+            lengthBox.Text = "5";
+            progressBar1.Value = 0;
 
             Shown += PassTool_Shown;
             Invalidated += PassTool_Invalidated;
 
             Paint += PassTool_Paint;
+            MouseMove += PassTool_MouseMove;
+        }
+
+        private void PassTool_MouseMove(object sender, MouseEventArgs e)
+        {
+            MousePosition = e.Location;
+
+            statusStrip1.Text = $"MouseX: {MousePosition.X}; MouseY: {MousePosition.Y}";
         }
 
         private void PassTool_Paint(object sender, PaintEventArgs e)
@@ -58,12 +63,12 @@ namespace PassTool.GUI
         private void PassTool_Shown(object sender, EventArgs e)
         {
             Ready = true;
+            recalculate();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            abt = new About();
-            abt.Show();
+            new About().Show();
         }
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -71,30 +76,6 @@ namespace PassTool.GUI
             Application.Exit();
         }
 
-        private void trackBar1_ValueChanged(object sender, EventArgs e)
-        {
-            numericUpDown1.Value = trackBar1.Value;
-        }
-
-
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        {
-            trackBar1.Value = (int)numericUpDown1.Value;
-            recalculate();
-        }
-
-        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
-        {
-            trackBar2.Value = (int)numericUpDown2.Value;
-            progressBar1.Maximum = trackBar2.Value;
-            recalculate();
-        }
-
-        private void trackBar2_ValueChanged(object sender, EventArgs e)
-        {
-            numericUpDown2.Value = trackBar2.Value;
-            progressBar1.Maximum = trackBar2.Value;
-        }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -104,26 +85,31 @@ namespace PassTool.GUI
         private void recalculate()
         {
 
-            textBox2.Text = CipherPassword.Manipulate(textBox1.Text, (long)numericUpDown1.Value, (int)numericUpDown2.Value);
+            if (Ready)
+                textBox2.Text = CipherPassword.Manipulate(textBox1.Text, (long)seedBar.Value, (int)lengthBar.Value);
+            /**/
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            /**/
             if (listBox1.SelectedItem != null)
             {
+                char item = (char)((string)listBox1.SelectedItem)[0];
                 listBox1.Items.Remove(listBox1.SelectedItem);
 
 
-                char item = (char)listBox1.SelectedItem;
                 CipherPassword.BLACKLIST.Remove((long)item);
 
                 listBox1.SelectedItem = null;
                 recalculate();
             }
+            /**/
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            /**/
             if (textBox3.TextLength == 0) return;
 
             listBox1.Items.Add(textBox3.Text);
@@ -133,20 +119,23 @@ namespace PassTool.GUI
 
             CipherPassword.BLACKLIST.Add((long)item);
             recalculate();
+            /**/
         }
 
         [Subscribe(Priority.Very_High)]
         public static void onCipherTick(CipherTickEvent e)
         {
-            if (Program.PassTool != null && Program.PassTool.textBox2 != null)
+            /**/
+            if (Program.passTool != null && Program.passTool.textBox2 != null)
             {
 
-                Program.PassTool.textBox2.Text = e.Pass;
-                Program.PassTool.progressBar1.Value = e.Pass.Length;
+                Program.passTool.textBox2.Text = e.Pass;
+                Program.passTool.progressBar1.Value = e.Pass.Length;
 
-                if (Program.PassTool.Ready)
-                    Program.PassTool.Refresh();
+                if (Program.passTool.Ready)
+                    Program.passTool.Refresh();
             }
+            /**/
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -154,6 +143,84 @@ namespace PassTool.GUI
             Clipboard.SetText(textBox2.Text, TextDataFormat.Text);
 
             MessageBox.Show("Password copied to clipboard");
+        }
+
+        private void seedBar_MouseClick(object sender, MouseEventArgs e)
+        {
+            MousePosition = e.Location;
+            // Get the percentage value for where the click occured.
+
+            int percent = getPercentForBar(seedBar);
+            int val = getBarValueByPercent(seedBar, percent);
+
+            seedBar.Value = val;
+            seedBox.Text = val.ToString();
+
+            recalculate();
+        }
+
+        int getPercentForBar(ProgressBar bar)
+        {
+            /*
+             * 
+             * 
+             * 
+             *          bar
+             *          
+             *          1. Get location of bar
+             *          2. Calculate the X offset of the left side of the bar
+             *              2a. This can be done by taking the bar location - width/2
+             *          3. Take the LeftPosition and subtract it from the Mouse X.
+             *          
+             *              
+             */
+            int percent = 0;
+
+
+            percent = MousePosition.X * 100 / bar.Size.Width;
+
+            return percent;
+        }
+
+        int getBarValueByPercent(ProgressBar bar, int percent)
+        {
+            long val = percent;
+            val *= bar.Maximum;
+            val /= 100;
+
+
+            return (int)val;
+        }
+
+        private void lengthBar_MouseClick(object sender, MouseEventArgs e)
+        {
+
+            MousePosition = e.Location;
+            // Get the percentage value for where the click occured.
+
+            int percent = getPercentForBar(lengthBar);
+            int val = getBarValueByPercent(lengthBar, percent);
+
+            lengthBar.Value = val;
+            lengthBox.Text = val.ToString();
+
+            progressBar1.Value = 0;
+            progressBar1.Maximum = val;
+
+
+            recalculate();
+        }
+
+        private void seedBox_Leave(object sender, EventArgs e)
+        {
+            seedBar.Value = int.Parse(seedBox.Text);
+            recalculate();
+        }
+
+        private void lengthBox_Leave(object sender, EventArgs e)
+        {
+            lengthBar.Value = int.Parse(lengthBox.Text);
+            recalculate();
         }
     }
 }

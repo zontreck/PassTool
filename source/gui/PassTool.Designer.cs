@@ -1,4 +1,6 @@
-﻿namespace PassTool.GUI
+﻿using System;
+
+namespace PassTool.GUI
 {
     partial class PassTool
     {
@@ -35,10 +37,6 @@
             label1 = new System.Windows.Forms.Label();
             textBox1 = new System.Windows.Forms.TextBox();
             label2 = new System.Windows.Forms.Label();
-            trackBar1 = new System.Windows.Forms.TrackBar();
-            numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            trackBar2 = new System.Windows.Forms.TrackBar();
-            numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             label3 = new System.Windows.Forms.Label();
             label4 = new System.Windows.Forms.Label();
             textBox2 = new System.Windows.Forms.TextBox();
@@ -49,11 +47,12 @@
             button2 = new System.Windows.Forms.Button();
             progressBar1 = new System.Windows.Forms.ProgressBar();
             button3 = new System.Windows.Forms.Button();
+            statusStrip1 = new System.Windows.Forms.StatusStrip();
+            seedBar = new System.Windows.Forms.ProgressBar();
+            seedBox = new System.Windows.Forms.TextBox();
+            lengthBox = new System.Windows.Forms.TextBox();
+            lengthBar = new System.Windows.Forms.ProgressBar();
             menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)trackBar2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -115,40 +114,6 @@
             label2.TabIndex = 3;
             label2.Text = "Seed:";
             // 
-            // trackBar1
-            // 
-            trackBar1.Location = new System.Drawing.Point(158, 141);
-            trackBar1.Name = "trackBar1";
-            trackBar1.Size = new System.Drawing.Size(511, 45);
-            trackBar1.TabIndex = 4;
-            trackBar1.ValueChanged += trackBar1_ValueChanged;
-            // 
-            // numericUpDown1
-            // 
-            numericUpDown1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            numericUpDown1.Location = new System.Drawing.Point(675, 141);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new System.Drawing.Size(120, 29);
-            numericUpDown1.TabIndex = 5;
-            numericUpDown1.ValueChanged += numericUpDown1_ValueChanged;
-            // 
-            // trackBar2
-            // 
-            trackBar2.Location = new System.Drawing.Point(158, 210);
-            trackBar2.Name = "trackBar2";
-            trackBar2.Size = new System.Drawing.Size(511, 45);
-            trackBar2.TabIndex = 6;
-            trackBar2.ValueChanged += trackBar2_ValueChanged;
-            // 
-            // numericUpDown2
-            // 
-            numericUpDown2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            numericUpDown2.Location = new System.Drawing.Point(675, 210);
-            numericUpDown2.Name = "numericUpDown2";
-            numericUpDown2.Size = new System.Drawing.Size(120, 29);
-            numericUpDown2.TabIndex = 7;
-            numericUpDown2.ValueChanged += numericUpDown2_ValueChanged;
-            // 
             // label3
             // 
             label3.AutoSize = true;
@@ -180,11 +145,13 @@
             // 
             // listBox1
             // 
+            listBox1.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 15;
-            listBox1.Location = new System.Drawing.Point(466, 261);
+            listBox1.ItemHeight = 30;
+            listBox1.Location = new System.Drawing.Point(389, 261);
             listBox1.Name = "listBox1";
-            listBox1.Size = new System.Drawing.Size(259, 94);
+            listBox1.ScrollAlwaysVisible = true;
+            listBox1.Size = new System.Drawing.Size(117, 94);
             listBox1.TabIndex = 11;
             // 
             // label5
@@ -200,9 +167,9 @@
             // button1
             // 
             button1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            button1.Location = new System.Drawing.Point(731, 261);
+            button1.Location = new System.Drawing.Point(314, 302);
             button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(64, 32);
+            button1.Size = new System.Drawing.Size(69, 39);
             button1.TabIndex = 13;
             button1.Text = "DEL";
             button1.UseVisualStyleBackColor = true;
@@ -230,11 +197,10 @@
             // 
             // progressBar1
             // 
-            progressBar1.Location = new System.Drawing.Point(12, 491);
+            progressBar1.Location = new System.Drawing.Point(12, 500);
             progressBar1.Name = "progressBar1";
             progressBar1.Size = new System.Drawing.Size(783, 41);
             progressBar1.Step = 1;
-            progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             progressBar1.TabIndex = 16;
             progressBar1.Value = 50;
             // 
@@ -249,12 +215,60 @@
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
+            // statusStrip1
+            // 
+            statusStrip1.Location = new System.Drawing.Point(0, 544);
+            statusStrip1.Name = "statusStrip1";
+            statusStrip1.Size = new System.Drawing.Size(807, 22);
+            statusStrip1.TabIndex = 18;
+            statusStrip1.Text = "statusStrip1";
+            // 
+            // seedBar
+            // 
+            seedBar.Location = new System.Drawing.Point(165, 142);
+            seedBar.Name = "seedBar";
+            seedBar.Size = new System.Drawing.Size(468, 32);
+            seedBar.TabIndex = 19;
+            seedBar.MouseClick += seedBar_MouseClick;
+            // 
+            // seedBox
+            // 
+            seedBox.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            seedBox.Location = new System.Drawing.Point(639, 142);
+            seedBox.Name = "seedBox";
+            seedBox.Size = new System.Drawing.Size(156, 35);
+            seedBox.TabIndex = 20;
+            seedBox.Leave += seedBox_Leave;
+            // 
+            // lengthBox
+            // 
+            lengthBox.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lengthBox.Location = new System.Drawing.Point(639, 208);
+            lengthBox.Name = "lengthBox";
+            lengthBox.Size = new System.Drawing.Size(156, 35);
+            lengthBox.TabIndex = 22;
+            lengthBox.Leave += lengthBox_Leave;
+            // 
+            // lengthBar
+            // 
+            lengthBar.Location = new System.Drawing.Point(165, 208);
+            lengthBar.Name = "lengthBar";
+            lengthBar.Size = new System.Drawing.Size(468, 32);
+            lengthBar.TabIndex = 21;
+            lengthBar.MouseClick += lengthBar_MouseClick;
+            // 
             // PassTool
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            AutoSize = true;
-            ClientSize = new System.Drawing.Size(807, 544);
+            ClientSize = new System.Drawing.Size(807, 566);
+            Controls.Add(lengthBox);
+            Controls.Add(lengthBar);
+            Controls.Add(seedBox);
+            Controls.Add(seedBar);
+            Controls.Add(statusStrip1);
+            Controls.Add(menuStrip1);
+            Controls.Add(label2);
+            Controls.Add(textBox1);
+            Controls.Add(label1);
             Controls.Add(button3);
             Controls.Add(progressBar1);
             Controls.Add(button2);
@@ -265,27 +279,14 @@
             Controls.Add(textBox2);
             Controls.Add(label4);
             Controls.Add(label3);
-            Controls.Add(numericUpDown2);
-            Controls.Add(trackBar2);
-            Controls.Add(numericUpDown1);
-            Controls.Add(trackBar1);
-            Controls.Add(label2);
-            Controls.Add(textBox1);
-            Controls.Add(label1);
-            Controls.Add(menuStrip1);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             MainMenuStrip = menuStrip1;
             MaximizeBox = false;
             Name = "PassTool";
-            Opacity = 0.9D;
-            RightToLeft = System.Windows.Forms.RightToLeft.No;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Password Tool";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)trackBar2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -299,10 +300,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TrackBar trackBar1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.TrackBar trackBar2;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBox2;
@@ -313,5 +310,10 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ProgressBar seedBar;
+        private System.Windows.Forms.TextBox seedBox;
+        private System.Windows.Forms.TextBox lengthBox;
+        private System.Windows.Forms.ProgressBar lengthBar;
     }
 }
