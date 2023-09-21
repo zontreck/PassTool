@@ -213,9 +213,16 @@
       <Files>
         <File buildAction="Compile" subType="Designer">PassTool.cs</File>
         <File buildAction="Compile" subType="Designer">About.cs</File>
-        <File buildAction="None" copyToOutput="Always">CARDC_.TTF</File>
-        <File buildAction="None" copyToOutput="Always">Inkfree.ttf</File>
       </Files>
+
+      <TextGen sourceInSolution="false" name="Fonts.sw" output="Fonts.json">
+        <Reference name="System"/>
+        <Reference name="System.IO"/>
+      </TextGen>
+
+      <TextGen sourceInSolution="false" name="Fonts.SnapWrap.json" tool="Bottle" output="Fonts.cs">
+
+      </TextGen>
 
     </Project>
     <Project name="TP.CS.EventsBus" path="TP.CS.EventsBus/source" type="Library">
