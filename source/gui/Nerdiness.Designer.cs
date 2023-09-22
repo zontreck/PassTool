@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Nerdiness));
             pictureBox1 = new System.Windows.Forms.PictureBox();
             pictureBox2 = new System.Windows.Forms.PictureBox();
             label1 = new System.Windows.Forms.Label();
@@ -43,14 +44,14 @@
             // 
             pictureBox1.Location = new System.Drawing.Point(12, 45);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(718, 82);
+            pictureBox1.Size = new System.Drawing.Size(466, 82);
             pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
             // pictureBox2
             // 
-            pictureBox2.Location = new System.Drawing.Point(12, 173);
+            pictureBox2.Location = new System.Drawing.Point(12, 160);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new System.Drawing.Size(230, 187);
             pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -60,7 +61,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(12, 143);
+            label1.Location = new System.Drawing.Point(12, 130);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(54, 15);
             label1.TabIndex = 2;
@@ -78,7 +79,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(248, 143);
+            label3.Location = new System.Drawing.Point(248, 130);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(68, 15);
             label3.TabIndex = 5;
@@ -86,7 +87,7 @@
             // 
             // pictureBox3
             // 
-            pictureBox3.Location = new System.Drawing.Point(248, 173);
+            pictureBox3.Location = new System.Drawing.Point(248, 160);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new System.Drawing.Size(230, 187);
             pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -97,16 +98,19 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(742, 515);
+            ClientSize = new System.Drawing.Size(500, 362);
             Controls.Add(label3);
             Controls.Add(pictureBox3);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "Nerdiness";
-            Text = "Nerdiness";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "PassTool - Nerdiness / Fun";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();

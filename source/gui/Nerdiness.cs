@@ -33,7 +33,8 @@ namespace PassTool.GUI
                 pictureBox2.Image = BarcodeWriter.CreateBarcode(Encoding.UTF8.GetBytes(mainForm.textBox2.Text), BarcodeEncoding.QRCode).Image;
 
                 pictureBox3.Image = BarcodeWriter.CreateBarcode(Encoding.UTF8.GetBytes(mainForm.textBox2.Text), BarcodeEncoding.DataMatrix).Image;
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
 
             }
