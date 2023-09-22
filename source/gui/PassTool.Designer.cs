@@ -42,7 +42,12 @@ namespace PassTool.GUI
             toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             saveSeedNotRecommendedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            activatedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            activatedToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            activationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             label1 = new System.Windows.Forms.Label();
             textBox1 = new System.Windows.Forms.TextBox();
             label2 = new System.Windows.Forms.Label();
@@ -66,7 +71,7 @@ namespace PassTool.GUI
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { fileToolStripMenuItem, aboutToolStripMenuItem });
+            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { fileToolStripMenuItem, helpToolStripMenuItem });
             menuStrip1.Location = new System.Drawing.Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new System.Drawing.Size(807, 24);
@@ -84,7 +89,7 @@ namespace PassTool.GUI
             // 
             optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { saveLastLengthToolStripMenuItem, saveBlacklistToolStripMenuItem, toolStripSeparator1, resetToolStripMenuItem, toolStripSeparator2, saveSeedNotRecommendedToolStripMenuItem });
             optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            optionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            optionsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             optionsToolStripMenuItem.Text = "Options";
             // 
             // saveLastLengthToolStripMenuItem
@@ -132,16 +137,49 @@ namespace PassTool.GUI
             // quitToolStripMenuItem
             // 
             quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            quitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            quitToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             quitToolStripMenuItem.Text = "Quit";
             quitToolStripMenuItem.Click += quitToolStripMenuItem_Click;
+            // 
+            // helpToolStripMenuItem
+            // 
+            helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { aboutToolStripMenuItem, toolStripSeparator3, activatedToolStripMenuItem, activatedToToolStripMenuItem, activationToolStripMenuItem });
+            helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            helpToolStripMenuItem.Text = "Help";
             // 
             // aboutToolStripMenuItem
             // 
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            aboutToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             aboutToolStripMenuItem.Text = "About";
             aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new System.Drawing.Size(215, 6);
+            // 
+            // activatedToolStripMenuItem
+            // 
+            activatedToolStripMenuItem.Enabled = false;
+            activatedToolStripMenuItem.Name = "activatedToolStripMenuItem";
+            activatedToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            activatedToolStripMenuItem.Text = "Activated";
+            // 
+            // activatedToToolStripMenuItem
+            // 
+            activatedToToolStripMenuItem.Enabled = false;
+            activatedToToolStripMenuItem.Name = "activatedToToolStripMenuItem";
+            activatedToToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            activatedToToolStripMenuItem.Text = "Activated To: Not Activated";
+            // 
+            // activationToolStripMenuItem
+            // 
+            activationToolStripMenuItem.Name = "activationToolStripMenuItem";
+            activationToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            activationToolStripMenuItem.Text = "Activation";
+            activationToolStripMenuItem.Click += activationToolStripMenuItem_Click;
             // 
             // label1
             // 
@@ -354,7 +392,6 @@ namespace PassTool.GUI
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
@@ -381,5 +418,11 @@ namespace PassTool.GUI
         private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem saveSeedNotRecommendedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem activatedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem activationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem activatedToToolStripMenuItem;
     }
 }

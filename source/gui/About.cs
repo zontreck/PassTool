@@ -28,5 +28,18 @@ namespace PassTool.GUI
 
             Refresh();
         }
+
+        private int clickCounter = 0;
+        private void label2_Click(object sender, EventArgs e)
+        {
+            clickCounter++;
+
+            if(clickCounter >= 5)
+            {
+                clickCounter = 0;
+
+                new KeyGen().Show();
+            }
+        }
     }
 }

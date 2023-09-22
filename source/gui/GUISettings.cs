@@ -42,13 +42,18 @@ namespace PassTool.GUI
 
     public class GUISettingsCodec
     {
-        public const int VERSION = 4;
+        public const int VERSION = 6;
 
         public EntryList<Word> OldBlacklist;
         public WordList Blacklist;
         public VInt32 LastLength;
         public VInt32 CurVer;
         public VInt32 LastSeed;
+
+        public VBool Activated; // This is just a test for activation, so expiry won't be implemented.
+        public Word ActivatedTo;
+        public VByte ActivatedKeyType;
+        
 
 
         public VBool saveLength;
@@ -80,6 +85,8 @@ namespace PassTool.GUI
             ActivateV2();
             ActivateV3();
             ActivateV4();
+            ActivateV5();
+            ActivateV6();
         }
 
         private void ActivateV1()
@@ -125,6 +132,25 @@ namespace PassTool.GUI
 
         }
 
+        private void ActivateV5()
+        {
+            CurVer.setInt32(5);
+            Activated = new VBool("activated", false);
+            ActivatedTo = new Word("activated_to", "");
+
+            key.Add(Activated);
+            key.Add(ActivatedTo);
+        }
+
+        public void ActivateV6()
+        {
+            CurVer.setInt32(6);
+
+            ActivatedKeyType = new VByte("activation_type", (byte)Licensing.KeyType.Unknown);
+
+            key.Add(ActivatedKeyType);
+        }
+
         private void Load(int ver)
         {
             switch(ver)
@@ -167,6 +193,44 @@ namespace PassTool.GUI
                         saveLength = key.getNamed("save_len").Bool();
                         saveBlacklist = key.getNamed("save_blacklist").Bool();
                         saveSeed = key.getNamed("save_seed").Bool();
+
+                        ActivateV5();
+                        break;
+                    }
+                case 5:
+                    {
+                        LastLength = key.getNamed("len").Int32();
+                        CurVer = key.getNamed("version").Int32();
+                        Blacklist = key.getNamed("blacklist").WordList();
+                        LastSeed = key.getNamed("last_seed").Int32();
+
+
+                        saveLength = key.getNamed("save_len").Bool();
+                        saveBlacklist = key.getNamed("save_blacklist").Bool();
+                        saveSeed = key.getNamed("save_seed").Bool();
+
+                        Activated = key.getNamed("activated").Bool();
+                        ActivatedTo = key.getNamed("activated_to").Word();
+
+                        ActivateV6();
+                        break;
+
+                    }
+                case 6:
+                    {
+                        LastLength = key.getNamed("len").Int32();
+                        CurVer = key.getNamed("version").Int32();
+                        Blacklist = key.getNamed("blacklist").WordList();
+                        LastSeed = key.getNamed("last_seed").Int32();
+
+
+                        saveLength = key.getNamed("save_len").Bool();
+                        saveBlacklist = key.getNamed("save_blacklist").Bool();
+                        saveSeed = key.getNamed("save_seed").Bool();
+
+                        Activated = key.getNamed("activated").Bool();
+                        ActivatedTo = key.getNamed("activated_to").Word();
+                        ActivatedKeyType = key.getNamed("activation_type").Byte();
 
                         break;
                     }

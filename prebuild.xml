@@ -213,6 +213,8 @@
       <Files>
         <File buildAction="Compile" subType="Designer">PassTool.cs</File>
         <File buildAction="Compile" subType="Designer">About.cs</File>
+        <File buildAction="Compile" subType="Designer">Activation.cs</File>
+        <File buildAction="Compile" subType="Designer">KeyGen.cs</File>
       </Files>
 
       <TextGen sourceInSolution="false" name="Fonts.sw" output="Fonts.json">

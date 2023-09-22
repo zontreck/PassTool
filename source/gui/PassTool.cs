@@ -34,7 +34,7 @@ namespace PassTool.GUI
             CARDS = LoadFont(EmbeddedFonts.Cards_ttf.Data, EmbeddedFonts.Cards_ttf.FamilyName);
 
 
-            
+
 
             InitializeComponent();
 
@@ -68,7 +68,7 @@ namespace PassTool.GUI
             IntPtr font = Marshal.AllocCoTaskMem(data.Length);
 
             Marshal.Copy(data, 0, font, data.Length);
-            
+
             Fonts.AddMemoryFont(font, data.Length);
             Marshal.FreeCoTaskMem(font);
 
@@ -95,7 +95,7 @@ namespace PassTool.GUI
             lengthBar.Maximum = 40;
 
             int seed = rng.Next(0, 0xFFFF);
-            if(GUISettings.Instance.codec.saveSeed.Value)
+            if (GUISettings.Instance.codec.saveSeed.Value)
             {
                 seed = GUISettings.Instance.codec.LastSeed.Value;
             }
@@ -136,7 +136,7 @@ namespace PassTool.GUI
 
                 if (GUISettings.Instance.codec.saveBlacklist.Value)
                 {
-                    foreach(string x in DEFAULT_BLACKLIST)
+                    foreach (string x in DEFAULT_BLACKLIST)
                     {
                         GUISettings.Instance.codec.Blacklist.Add(x);
                     }
@@ -153,6 +153,23 @@ namespace PassTool.GUI
 
                 }
             }
+
+            activatedToolStripMenuItem.Checked = GUISettings.Instance.codec.Activated.Value;
+
+            if (activatedToolStripMenuItem.Checked)
+            {
+                activatedToToolStripMenuItem.Text = "Activated To: " + GUISettings.Instance.codec.ActivatedTo.Value;
+                activationToolStripMenuItem.Enabled = false;
+
+                Text = $"Password Tool - {GUISettings.Instance.codec.ActivatedTo.Value}";
+            }
+            else
+            {
+                activatedToToolStripMenuItem.Text = "Activated To: Nobody";
+                activationToolStripMenuItem.Enabled = true;
+            }
+
+
         }
 
         private void PassTool_MouseMove(object sender, MouseEventArgs e)
@@ -215,7 +232,7 @@ namespace PassTool.GUI
                 };
                 Thread PROC = new Thread((parax) =>
                 {
-                    if(parax is ThreadParams par)
+                    if (parax is ThreadParams par)
                     {
                         textBox2.Text = CipherPassword.Manipulate(par.rawText, par.seed, par.length);
 
@@ -223,7 +240,7 @@ namespace PassTool.GUI
                 });
                 PROC.Start(para);
 
-                
+
 
                 if (GUISettings.Instance.codec.saveLength.Value)
                 {
@@ -253,7 +270,7 @@ namespace PassTool.GUI
                 string item = (string)listBox1.SelectedItem;
                 listBox1.Items.Remove(listBox1.SelectedItem);
 
-                if(GUISettings.Instance.codec.saveBlacklist.Value)
+                if (GUISettings.Instance.codec.saveBlacklist.Value)
                     GUISettings.Instance.codec.Blacklist.Remove(item);
                 CipherPassword.BLACKLIST.Remove(item[0]);
 
@@ -407,6 +424,24 @@ namespace PassTool.GUI
             LoadHive();
 
             recalculate();
+        }
+
+        private void activationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Activation prompt = new Activation(INKFREE);
+            prompt.Show();
+        }
+
+
+        [Subscribe(Priority.Low)]
+        public static void onActivate(ActivationEvent ev)
+        {
+            if (ev.isCancelled) return;
+
+            Program.passTool.Invoke(() =>
+            {
+                Program.passTool.LoadHive();
+            });
         }
     }
 }
