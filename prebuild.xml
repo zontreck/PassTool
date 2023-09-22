@@ -200,6 +200,7 @@
       <Reference name="PassTool" />
       <Reference name="TP.CS.Registry" />
       <Reference name="TP.CS.EventsBus" />
+      <PackageReference name="BarCode" version="2023.9.45"/>
 
       <TextGen sourceInSolution="true" name="GitVersion.sw" output="Versions.cs">
         <Reference name="System" />
@@ -207,7 +208,6 @@
         <Reference name="System.IO" />
         <Reference name="System.Diagnostics.Process" version="7.0.0.0" />
         <Reference name="System.Reflection" />
-        <Reference name="BarCode" version="2023.9.45"/>
       </TextGen>
 
 
@@ -216,6 +216,7 @@
         <File buildAction="Compile" subType="Designer">About.cs</File>
         <File buildAction="Compile" subType="Designer">Activation.cs</File>
         <File buildAction="Compile" subType="Designer">KeyGen.cs</File>
+        <File buildAction="Compile" subType="Designer">Nerdiness.cs</File>
       </Files>
 
       <TextGen sourceInSolution="false" name="Fonts.sw" output="Fonts.json">

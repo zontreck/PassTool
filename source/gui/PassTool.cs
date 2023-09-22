@@ -238,7 +238,7 @@ namespace PassTool.GUI
                 {
                     if (parax is ThreadParams par)
                     {
-                        textBox2.Text = CipherPassword.Manipulate(par.rawText, par.seed, par.length);
+                        CipherPassword.Manipulate(par.rawText, par.seed, par.length);
 
                     }
                 });
@@ -318,6 +318,12 @@ namespace PassTool.GUI
 
                     if (Program.passTool.Ready)
                         Program.passTool.Refresh();
+
+
+                    if(Program.passTool.nerdStuff != null && !Program.passTool.nerdStuff.IsDisposed)
+                    {
+                        Program.passTool.nerdStuff.RefreshBarcodes();
+                    }
                 });
             }
             /**/
@@ -446,6 +452,17 @@ namespace PassTool.GUI
             {
                 Program.passTool.LoadHive();
             });
+        }
+        Nerdiness nerdStuff;
+        private void nerdinessToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (nerdStuff != null)
+            {
+                if (!nerdStuff.IsDisposed) nerdStuff.Close();
+            }
+            nerdStuff = new Nerdiness(this);
+
+            nerdStuff.Show();
         }
     }
 }

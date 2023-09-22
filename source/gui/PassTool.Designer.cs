@@ -48,6 +48,7 @@ namespace PassTool.GUI
             activatedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             activatedToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             activationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            nerdinessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             label1 = new System.Windows.Forms.Label();
             textBox1 = new System.Windows.Forms.TextBox();
             label2 = new System.Windows.Forms.Label();
@@ -66,7 +67,6 @@ namespace PassTool.GUI
             seedBox = new System.Windows.Forms.TextBox();
             lengthBox = new System.Windows.Forms.TextBox();
             lengthBar = new System.Windows.Forms.ProgressBar();
-            nerdinessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -181,6 +181,13 @@ namespace PassTool.GUI
             activationToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             activationToolStripMenuItem.Text = "Activation";
             activationToolStripMenuItem.Click += activationToolStripMenuItem_Click;
+            // 
+            // nerdinessToolStripMenuItem
+            // 
+            nerdinessToolStripMenuItem.Name = "nerdinessToolStripMenuItem";
+            nerdinessToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            nerdinessToolStripMenuItem.Text = "Nerdiness";
+            nerdinessToolStripMenuItem.Click += nerdinessToolStripMenuItem_Click;
             // 
             // label1
             // 
@@ -354,12 +361,6 @@ namespace PassTool.GUI
             lengthBar.TabIndex = 21;
             lengthBar.MouseClick += lengthBar_MouseClick;
             // 
-            // nerdinessToolStripMenuItem
-            // 
-            nerdinessToolStripMenuItem.Name = "nerdinessToolStripMenuItem";
-            nerdinessToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
-            nerdinessToolStripMenuItem.Text = "Nerdiness";
-            // 
             // PassTool
             // 
             ClientSize = new System.Drawing.Size(807, 566);
@@ -405,7 +406,6 @@ namespace PassTool.GUI
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button1;
@@ -432,5 +432,6 @@ namespace PassTool.GUI
         private System.Windows.Forms.ToolStripMenuItem activationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem activatedToToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nerdinessToolStripMenuItem;
+        public System.Windows.Forms.TextBox textBox2;
     }
 }
