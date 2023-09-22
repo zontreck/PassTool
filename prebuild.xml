@@ -207,6 +207,7 @@
         <Reference name="System.IO" />
         <Reference name="System.Diagnostics.Process" version="7.0.0.0" />
         <Reference name="System.Reflection" />
+        <Reference name="BarCode" version="2023.9.45"/>
       </TextGen>
 
 

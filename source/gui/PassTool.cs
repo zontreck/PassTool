@@ -162,11 +162,15 @@ namespace PassTool.GUI
                 activationToolStripMenuItem.Enabled = false;
 
                 Text = $"Password Tool - {GUISettings.Instance.codec.ActivatedTo.Value}";
+
+                nerdinessToolStripMenuItem.Visible = true;
             }
             else
             {
                 activatedToToolStripMenuItem.Text = "Activated To: Nobody";
                 activationToolStripMenuItem.Enabled = true;
+
+                nerdinessToolStripMenuItem.Visible = false;
             }
 
 
