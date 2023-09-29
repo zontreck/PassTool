@@ -10,6 +10,7 @@ namespace PassTool
     /// <summary>
     /// This event is dispatched when another digit in the password has been generated
     /// </summary>
+    [Cancellable()]
     public class CipherTickEvent : Event
     {
         public int Length;

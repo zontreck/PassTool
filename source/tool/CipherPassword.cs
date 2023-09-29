@@ -78,7 +78,8 @@ namespace PassTool
                         // OK
                         found = true;
 
-                        EventBus.Broadcast(new CipherTickEvent(makePass(pwd.Take(P).ToList()), length));
+                        // If the event bus cancels this, abort immediately.
+                        if (EventBus.Broadcast(new CipherTickEvent(makePass(pwd.Take(P).ToList()), length))) return "ABORT";
                         //Console.Write((char)(int)VAL);
                         break;
                     }

@@ -167,7 +167,7 @@ namespace PassTool.GUI
                     {
                         LastLength = key.getNamed("len").Int32();
                         CurVer = key.getNamed("version").Int32();
-                        OldBlacklist = key.getNamed("blacklist").Array<Word>();
+                        OldBlacklist = key.getNamed("blacklist") as EntryList<Word>;
 
                         ActivateV3();
                         break;

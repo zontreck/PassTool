@@ -67,6 +67,7 @@ namespace PassTool.GUI
             seedBox = new System.Windows.Forms.TextBox();
             lengthBox = new System.Windows.Forms.TextBox();
             lengthBar = new System.Windows.Forms.ProgressBar();
+            button4 = new System.Windows.Forms.Button();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -206,7 +207,7 @@ namespace PassTool.GUI
             textBox1.Name = "textBox1";
             textBox1.Size = new System.Drawing.Size(540, 43);
             textBox1.TabIndex = 2;
-            textBox1.TextChanged += textBox1_TextChanged;
+            textBox1.Leave += textBox1_TextChanged;
             // 
             // label2
             // 
@@ -361,9 +362,20 @@ namespace PassTool.GUI
             lengthBar.TabIndex = 21;
             lengthBar.MouseClick += lengthBar_MouseClick;
             // 
+            // button4
+            // 
+            button4.Location = new System.Drawing.Point(540, 337);
+            button4.Name = "button4";
+            button4.Size = new System.Drawing.Size(129, 48);
+            button4.TabIndex = 23;
+            button4.Text = "Generate";
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
+            // 
             // PassTool
             // 
             ClientSize = new System.Drawing.Size(807, 566);
+            Controls.Add(button4);
             Controls.Add(lengthBox);
             Controls.Add(lengthBar);
             Controls.Add(seedBox);
@@ -433,5 +445,6 @@ namespace PassTool.GUI
         private System.Windows.Forms.ToolStripMenuItem activatedToToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nerdinessToolStripMenuItem;
         public System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button button4;
     }
 }

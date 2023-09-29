@@ -27,6 +27,39 @@ namespace PassTool.GUI
         public FontFamily INKFREE;
         public FontFamily CARDS;
 
+        public static bool dirty = true;
+        public static bool preDirty = false;
+
+        private ThreadParams para;
+
+        private void markDirty()
+        {
+            dirty = false;
+
+            if (!preDirty)
+            {
+
+                para = new ThreadParams()
+                {
+                    rawText = textBox1.Text,
+                    seed = seedBar.Value,
+                    length = lengthBar.Value
+                };
+                Thread X = new Thread(() =>
+                {
+                    Thread.Sleep(3500);
+                    preDirty = false;
+                    dirty = true;
+
+                });
+
+                X.Start();
+            }
+
+            preDirty = true;
+
+
+        }
 
         public PassTool()
         {
@@ -46,6 +79,8 @@ namespace PassTool.GUI
             label4.Font = new Font(CARDS, 20F, FontStyle.Regular);
             label5.Font = new Font(CARDS, 20F, FontStyle.Regular);
 
+            button4.Font = new Font(INKFREE, 16F, FontStyle.Bold);
+
             Shown += PassTool_Shown;
             Invalidated += PassTool_Invalidated;
 
@@ -55,6 +90,32 @@ namespace PassTool.GUI
 
             GUISettings.SettingsLoad(Program.Hive);
             LoadHive();
+
+
+            para = new ThreadParams()
+            {
+                rawText = textBox1.Text,
+                seed = seedBar.Value,
+                length = lengthBar.Value
+            };
+            Thread PROC = new Thread(() =>
+            {
+
+                while (!Program.passTool.IsDisposed)
+                {
+                    // Check dirty occasionally
+                    if (dirty)
+                    {
+                        dirty = false;
+                        CipherPassword.Manipulate(para.rawText, para.seed, para.length);
+                    }
+
+                    Thread.Sleep(1000);
+                }
+
+
+            });
+            PROC.Start();
         }
 
         /// <summary>
@@ -228,21 +289,7 @@ namespace PassTool.GUI
 
             if (Ready)
             {
-                ThreadParams para = new ThreadParams()
-                {
-                    rawText = textBox1.Text,
-                    seed = seedBar.Value,
-                    length = lengthBar.Value
-                };
-                Thread PROC = new Thread((parax) =>
-                {
-                    if (parax is ThreadParams par)
-                    {
-                        CipherPassword.Manipulate(par.rawText, par.seed, par.length);
-
-                    }
-                });
-                PROC.Start(para);
+                markDirty();
 
 
 
@@ -262,6 +309,7 @@ namespace PassTool.GUI
 
 
                 RegistryIO.saveHive(Program.Hive, "PassTool");
+
             }
             /**/
         }
@@ -310,17 +358,26 @@ namespace PassTool.GUI
             /**/
             if (Program.passTool != null && Program.passTool.textBox2 != null)
             {
+                if (preDirty)
+                {
+                    e.setCancelled(true);
+
+                    Program.passTool.markDirty();
+
+                    return;
+                }
                 Program.passTool.Invoke(() =>
                 {
 
                     Program.passTool.textBox2.Text = e.Pass;
                     Program.passTool.progressBar1.Value = e.Pass.Length;
 
+
                     if (Program.passTool.Ready)
                         Program.passTool.Refresh();
 
 
-                    if(Program.passTool.nerdStuff != null && !Program.passTool.nerdStuff.IsDisposed)
+                    if (Program.passTool.nerdStuff != null && !Program.passTool.nerdStuff.IsDisposed)
                     {
                         Program.passTool.nerdStuff.RefreshBarcodes();
                     }
@@ -463,6 +520,11 @@ namespace PassTool.GUI
             nerdStuff = new Nerdiness(this);
 
             nerdStuff.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            markDirty();
         }
     }
 }
