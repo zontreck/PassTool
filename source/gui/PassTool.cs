@@ -207,8 +207,14 @@ namespace PassTool.GUI
             if (GUISettings.Instance.codec.saveBlacklist.Value)
             {
                 listBox1.Items.Clear();
-                foreach (string X in GUISettings.Instance.codec.Blacklist)
+                foreach (string X in GUISettings.Instance.codec.Blacklist.ToArray())
                 {
+                    if (X == String.Empty)
+                    {
+                        // Prevent a crash by removing this item
+                        GUISettings.Instance.codec.Blacklist.Remove(X);
+                        continue;
+                    }
                     listBox1.Items.Add(X);
                     CipherPassword.BLACKLIST.Add(X[0]);
 
@@ -345,7 +351,7 @@ namespace PassTool.GUI
 
             CipherPassword.BLACKLIST.Add((long)item);
             if (GUISettings.Instance.codec.saveBlacklist.Value)
-                GUISettings.Instance.codec.Blacklist.Add(textBox3.Text);
+                GUISettings.Instance.codec.Blacklist.Add(new string(item,1));
 
 
             recalculate();
