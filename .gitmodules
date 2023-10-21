@@ -1,12 +1,3 @@
 [submodule "Prebuild"]
 	path = Prebuild
-	url = git@github.com:zontreck/Prebuild
-[submodule "LibAC"]
-	path = LibAC
-	url = git@github.com:zontreck/LibZNI
-[submodule "TP.CS.EventsBus"]
-	path = TP.CS.EventsBus
-	url = git@github.com:zontreck/TP.CS.EventsBus
-[submodule "TP.CS.Registry"]
-	path = TP.CS.Registry
-	url = git@github.com:zontreck/TP.CS.Registry
+	url = https://github.com/zontreck/Prebuild
