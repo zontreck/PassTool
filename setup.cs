@@ -49,7 +49,7 @@ $"#define MyAppName \"PassTool\"\n" +
 $"#define MyAppVersion \"{versionInfo}.{patch}.0\"\n" +
 $"#define MyAppPublisher \"ByteWave Labs\"\n" +
 "#define MyAppURL \"https://github.com/zontreck/PassTool\"\n" +
-$"#define MyAppExeName \"PassTool.GUI.exe\"\n" +
+$"#define MyAppExeName \"PassTool.exe\"\n" +
 $"\n" +
 $"[Setup]\n" +
 "AppId={{" + AppID + "}\n" +
@@ -71,6 +71,66 @@ $"SolidCompression=yes\n" +
 $"WizardStyle=modern\n" +
 $"\n" +
 $"\n" +
+$"[Code]\n" +
+
+"{ ///////////////////////////////////////////////////////////////////// }\n" +
+"function GetUninstallString(): String;\n" +
+"var\n" +
+"  sUnInstPath: String;\n" +
+"  sUnInstallString: String;\n" +
+"begin\n" +
+"  sUnInstPath := ExpandConstant('Software\Microsoft\Windows\CurrentVersion\Uninstall\{#emit SetupSetting(\"AppId\")}_is1');\n" +
+"  sUnInstallString := '';\n" + 
+"  if not RegQueryStringValue(HKLM, sUnInstPath, 'UninstallString', sUnInstallString) then\n" +
+"    RegQueryStringValue(HKCU, sUnInstPath, 'UninstallString', sUnInstallString);\n" +
+"  Result := sUnInstallString;\n" +
+"end;\n" +
+
+
+"{ ///////////////////////////////////////////////////////////////////// }\n" +
+"function IsUpgrade(): Boolean;\n" +
+"begin\n" +
+"  Result := (GetUninstallString() <> '');\n" +
+"end;\n" +
+
+
+"{ ///////////////////////////////////////////////////////////////////// }\n" +
+"function UnInstallOldVersion(): Integer;\n" +
+"var\n" +
+"  sUnInstallString: String;\n" +
+"  iResultCode: Integer;\n" +
+"begin\n" +
+"{ Return Values: }\n" +
+"{ 1 - uninstall string is empty }\n" +
+"{ 2 - error executing the UnInstallString }\n" +
+"{ 3 - successfully executed the UnInstallString }\n" +
+
+"  { default return value }\n" +
+"  Result := 0;\n" +
+
+"  { get the uninstall string of the old app }\n" +
+"  sUnInstallString := GetUninstallString();\n" +
+"  if sUnInstallString <> '' then begin\n" +
+"    sUnInstallString := RemoveQuotes(sUnInstallString);\n" +
+"    if Exec(sUnInstallString, '/SILENT /NORESTART /SUPPRESSMSGBOXES','', SW_HIDE, ewWaitUntilTerminated, iResultCode) then\n" +
+"      Result := 3\n" +
+"    else\n" +
+"      Result := 2;\n" +
+"  end else\n" +
+"    Result := 1;\n" +
+"end;\n" +
+
+"{ ///////////////////////////////////////////////////////////////////// }\n" +
+"procedure CurStepChanged(CurStep: TSetupStep);\n" +
+"begin\n" +
+"  if (CurStep=ssInstall) then\n" +
+"  begin\n" +
+"    if (IsUpgrade()) then\n" +
+"    begin\n" +
+"      UnInstallOldVersion();\n" +
+"    end;\n" +
+"  end;\n"+
+"end;\n"
 $"\n" +
 $"[Languages]\n" +
 $"Name: \"english\"; MessagesFile: \"compiler:Default.isl\"\n" +
