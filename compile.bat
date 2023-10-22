@@ -3,6 +3,7 @@
 call runprebuild.bat
 
 cd source
+call flutter doctor
 call flutter build windows
 cd ..
 
