@@ -7,3 +7,5 @@ chmod +x runprebuild.sh
 cd source
 flutter build apk
 flutter build linux
+
+cd ..
