@@ -5,6 +5,7 @@ chmod +x runprebuild.sh
 ./runprebuild.sh
 
 cd source
+flutter doctor
 flutter build apk
 flutter build linux
 
