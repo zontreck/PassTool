@@ -130,7 +130,7 @@ $"[Code]\n" +
 "      UnInstallOldVersion();\n" +
 "    end;\n" +
 "  end;\n"+
-"end;\n"
+"end;\n" +
 $"\n" +
 $"[Languages]\n" +
 $"Name: \"english\"; MessagesFile: \"compiler:Default.isl\"\n" +
