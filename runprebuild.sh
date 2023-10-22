@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd Prebuild
-./runprebuild.sh
+./compile.sh
 cd ..
 
 
