@@ -49,7 +49,7 @@ $"#define MyAppName \"PassTool\"\n" +
 $"#define MyAppVersion \"{versionInfo}.{patch}.0\"\n" +
 $"#define MyAppPublisher \"ByteWave Labs\"\n" +
 "#define MyAppURL \"https://github.com/zontreck/PassTool\"\n" +
-$"#define MyAppExeName \"PassTool.exe\"\n" +
+$"#define MyAppExeName \"pass_tool.exe\"\n" +
 $"\n" +
 $"[Setup]\n" +
 "AppId={{" + AppID + "}\n" +
@@ -140,7 +140,7 @@ $"[Tasks]\n" +
 $"Name: \"desktopicon\"; Description: \"{{cm:CreateDesktopIcon}}\"; GroupDescription: \"{{cm:AdditionalIcons}}\"; Flags: unchecked\r\n\n" +
 $"\n" +
 $"[Files]\n" +
-$"Source: \"{Path.Combine(Path.Combine(CurrentDirectory, "bin"), "release")}\\*\"; DestDir: \"{{app}}\"; Flags: ignoreversion recursesubdirs createallsubdirs\n" +
+$"Source: \"{Path.Combine(Path.Combine(Path.Combine(Path.Combine(Path.Combine(CurrentDirectory, "source"), "build"), "windows"), "runner"), "Release")}\\*\"; DestDir: \"{{app}}\"; Flags: ignoreversion recursesubdirs createallsubdirs\n" +
 $"\n" +
 $"[Icons]\n" +
 $"Name: \"{{autoprograms}}\\{{#MyAppName}}\"; Filename: \"{{app}}\\{{#MyAppExeName}}\"\n" +
