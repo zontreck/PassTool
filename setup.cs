@@ -137,10 +137,10 @@ $"Name: \"english\"; MessagesFile: \"compiler:Default.isl\"\n" +
 $"\n" +
 $"\n" +
 $"[Tasks]\n" +
-$"Name: \"desktopicon\"; Description: \"{{cm:CreateDesktopIcon}}\"; GroupDescription: \"{{cm:AdditionalIcons}}\"; Flags: unchecked\r\n\n" +
+$"Name: \"desktopicon\"; Description: \"{{cm:CreateDesktopIcon}}\"; GroupDescription: \"{{cm:AdditionalIcons}}\"; Flags: unchecked\n\n" +
 $"\n" +
 $"[Files]\n" +
-$"Source: \"{Path.Combine(Path.Combine(Path.Combine(Path.Combine(Path.Combine(CurrentDirectory, "source"), "build"), "windows"), "runner"), "Release")}\\*\"; DestDir: \"{{app}}\"; Flags: ignoreversion recursesubdirs createallsubdirs\n" +
+$"Source: \"" + Path.Combine(Path.Combine(Path.Combine(Path.Combine(Path.Combine(CurrentDirectory, "source"), "build"), "windows"), "runner"), "Release") + $"\\*\"; DestDir: \"{{app}}\"; Flags: ignoreversion recursesubdirs createallsubdirs\n" +
 $"\n" +
 $"[Icons]\n" +
 $"Name: \"{{autoprograms}}\\{{#MyAppName}}\"; Filename: \"{{app}}\\{{#MyAppExeName}}\"\n" +

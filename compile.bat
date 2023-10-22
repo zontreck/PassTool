@@ -3,7 +3,7 @@
 call runprebuild.bat
 
 cd source
-flutter build windows
+call flutter build windows
 cd ..
 
 dotnet Prebuild\bootstrap\SnapWrap.dll setup.cs setup.SnapWrap.iss System
