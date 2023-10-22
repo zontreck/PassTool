@@ -145,8 +145,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ListTile(
                     leading: Icon(Icons.dangerous),
                     title: Text("G E N E R A T O R"),
-                    subtitle:
-                        Text("Legacy Generator (Deprecated - To be removed)"),
                     onTap: () {
                       Navigator.pushNamed(context, "/legacy");
                     },
