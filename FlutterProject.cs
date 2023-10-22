@@ -47,7 +47,7 @@ Console.WriteLine();
 Console.WriteLine("name: pass_tool\n" + 
 "description: Flutter Pass Tool Project\n" + 
 "publish_to: 'none'\n" +
-$"version: {versionInfo}.${patch}.0\n" +
+$"version: {versionInfo}.{patch}\n" +
 "environment:\n" +
 "  sdk: '>=3.1.4 <4.0.0'\n" +
 "\n\n" +
