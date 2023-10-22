@@ -2,4 +2,7 @@ cd Prebuild
 call compile.bat
 cd ..
 
-dotnet Prebuild/bootstrap/prebuild.dll /target vs2022 /excludedir = "obj | bin" /file prebuild.xml
+
+
+dotnet Prebuild\bootstrap\SnapWrap.dll FlutterProject.cs flutter.SnapWrap.yaml System
+move flutter.SnapWrap.yaml source\pubspec.yaml

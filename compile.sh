@@ -4,5 +4,9 @@
 chmod +x runprebuild.sh
 ./runprebuild.sh
 
-# Build Prebuild and SnapWrap
-dotnet build -c Release
+cd source
+flutter doctor
+flutter build apk
+flutter build linux
+
+cd ..

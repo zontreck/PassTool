@@ -1,2 +1,10 @@
 #!/bin/bash
-dotnet Prebuild/bootstrap/prebuild.dll /target vs2022 /excludedir = "obj | bin" /file prebuild.xml
+
+cd Prebuild
+./compile.sh
+cd ..
+
+
+
+dotnet Prebuild/bootstrap/SnapWrap.dll FlutterProject.cs flutter.SnapWrap.yaml System
+mv flutter.SnapWrap.yaml source/pubspec.yaml

@@ -1,8 +1,11 @@
 @echo off
 
 call runprebuild.bat
-dotnet build -c Debug
-dotnet build -c Release
+
+cd source
+call flutter doctor
+call flutter build windows
+cd ..
 
 dotnet Prebuild\bootstrap\SnapWrap.dll setup.cs setup.SnapWrap.iss System
 iscc setup.SnapWrap.iss
