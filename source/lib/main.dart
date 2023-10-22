@@ -177,10 +177,6 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: <Widget>[
-              Text(
-                "Warning: This has legacy behavior that is scheduled for removal\nA future version will add a new generator that you should use instead\n\nThis will be left in for some time to allow time to switch to the newer generator!",
-                style: TextStyle(color: Colors.red),
-              ),
               ListTile(
                   title: Text("Cipher Text (Case Sensitive)"),
                   subtitle: Text(cipherText),
