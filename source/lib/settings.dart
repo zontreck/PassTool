@@ -11,6 +11,7 @@ class Settings {
   int lastSeed = 1;
   int lastLength = 5;
   bool isDark = true;
+  bool isFirstBoot = true;
 
   void read() {
     var box = Hive.box("PassTool");
@@ -27,6 +28,8 @@ class Settings {
     isDark = box.get("dark", defaultValue: true);
 
     if (lastLength <= 0 || lastLength >= 41) lastLength = 5;
+
+    isFirstBoot = box.get("onboard", defaultValue: true);
   }
 
   void write() {
@@ -52,6 +55,7 @@ class Settings {
       box.delete("blacklist");
 
     box.put("dark", isDark);
+    box.put("onboard", isFirstBoot);
   }
 }
 

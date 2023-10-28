@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
+import 'package:pass_tool/settings.dart';
 
 class BlacklistView extends StatefulWidget {
   @override
@@ -10,8 +11,9 @@ class BlacklistView extends StatefulWidget {
 
 class BlacklistArguments {
   List<String> selected;
+  Settings settings;
 
-  BlacklistArguments({required this.selected});
+  BlacklistArguments({required this.selected, required this.settings});
 }
 
 class BlacklistReturnValue {
