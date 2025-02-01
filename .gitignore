@@ -404,13 +404,9 @@ bootstrap/*.exe
 bootstrap/**
 bootstrap
 
-*.iss
-
 source/**/*.csproj
 *.sln
 
-*.Bottle.cs
-*.SnapWrap.*
 
 setup/PassTool-setup.exe
 
@@ -459,5 +455,3 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
-pubspec.yaml
