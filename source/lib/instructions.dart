@@ -1,11 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:libacflutter/Constants.dart';
 import 'package:pass_tool/keyboard.dart';
 import 'package:pass_tool/settings.dart';
 
 class Instructions extends StatefulWidget {
-  Instructions({super.key});
+  const Instructions({super.key});
 
   @override
   InstructionsState createState() => InstructionsState();
@@ -16,15 +17,18 @@ class InstructionsState extends State<Instructions> {
 
   bool firstBoot = true;
 
-  InstructionsState() {
-    settings.read();
+  InstructionsState();
+
+  @override
+  Future<void> didChangeDependencies() async {
+    if (!settings.initialized) await settings.read();
   }
 
   @override
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (firstBoot) {
         if (!settings.isFirstBoot) {
           Navigator.of(context).pushNamed("/generator", arguments: settings);
@@ -51,7 +55,10 @@ class InstructionsState extends State<Instructions> {
     TextStyle B =
         TextStyle(color: Color.fromARGB(255, 200, 100, 100), fontSize: 18);
     return Scaffold(
-      appBar: AppBar(title: Text("Password Tool - Welcome")),
+      appBar: AppBar(
+        title: Text("Password Tool - Welcome"),
+        backgroundColor: LibACFlutterConstants.TITLEBAR_COLOR,
+      ),
       body: Padding(
         padding: EdgeInsets.all(16),
         child: SingleChildScrollView(
@@ -90,48 +97,46 @@ class InstructionsState extends State<Instructions> {
       ),
       drawer: Drawer(
         backgroundColor: Colors.blueAccent,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              DrawerHeader(
-                child: Column(
-                  children: [
-                    Icon(Icons.key, size: 48),
-                    Text("Created by Tara Piccari"),
-                    Text("Copyright 2023"),
-                    Text("https://github.com/zontreck/PassTool"),
-                  ],
-                ),
-              ),
-              Column(
+        child: Column(
+          children: [
+            DrawerHeader(
+              child: Column(
                 children: [
-                  ListTile(
-                    leading: Icon(Icons.dangerous),
-                    title: Text("G E N E R A T O R"),
-                    onTap: () {
-                      Navigator.pushNamed(context, "/generator",
-                          arguments: settings);
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.settings),
-                    title: Text("S E T T I N G S"),
-                    onTap: () {
-                      Navigator.pushNamed(context, "/settings",
-                          arguments: settings);
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.block),
-                    title: Text("B L A C K L I S T"),
-                    onTap: () {
-                      openBlacklist();
-                    },
-                  ),
+                  Icon(Icons.key, size: 38),
+                  Text("Created by Tara Piccari"),
+                  Text("Copyright 2023-2025"),
+                  Text("https://github.com/zontreck/PassTool"),
                 ],
               ),
-            ],
-          ),
+            ),
+            Column(
+              children: [
+                ListTile(
+                  leading: Icon(Icons.dangerous),
+                  title: Text("G E N E R A T O R"),
+                  onTap: () {
+                    Navigator.pushNamed(context, "/generator",
+                        arguments: settings);
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text("S E T T I N G S"),
+                  onTap: () {
+                    Navigator.pushNamed(context, "/settings",
+                        arguments: settings);
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.block),
+                  title: Text("B L A C K L I S T"),
+                  onTap: () {
+                    openBlacklist();
+                  },
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

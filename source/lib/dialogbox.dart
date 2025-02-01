@@ -26,8 +26,9 @@ class InputBox extends StatelessWidget {
       this.isNumeric = false}) {
     if (isDefault) {
       value.text = "";
-    } else
+    } else {
       value.text = defaultText;
+    }
   }
 
   @override
@@ -42,22 +43,22 @@ class InputBox extends StatelessWidget {
               onSubmit();
               Navigator.of(context).pop();
             },
-            child: Text("Submit"),
             style: ButtonStyle(
-                backgroundColor: MaterialStateColor.resolveWith(
+                backgroundColor: WidgetStateColor.resolveWith(
                     (states) => const Color.fromARGB(255, 0, 83, 3))),
+            child: Text("Submit"),
           ),
           ElevatedButton(
               onPressed: () {
                 onCancel();
                 Navigator.of(context).pop();
               },
-              child: Text("Cancel"),
               style: ButtonStyle(
-                  backgroundColor: MaterialStateColor.resolveWith(
-                      (states) => const Color.fromARGB(255, 109, 7, 0))))
+                  backgroundColor: WidgetStateColor.resolveWith(
+                      (states) => const Color.fromARGB(255, 109, 7, 0))),
+              child: Text("Cancel"))
         ],
-        content: Container(
+        content: SizedBox(
             height: 128,
             //decoration: BoxDecoration(
             //border: Border.all(style: BorderStyle.solid),

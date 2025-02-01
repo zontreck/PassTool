@@ -8,7 +8,7 @@
 PRODUCT_NAME = pass_tool
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.passTool
+PRODUCT_BUNDLE_IDENTIFIER = dev.zontreck.passTool
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2023 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2025 dev.zontreck. All rights reserved.

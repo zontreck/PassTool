@@ -1,7 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:libac_dart/nbt/NbtIo.dart';
+import 'package:libac_dart/nbt/NbtUtils.dart';
+import 'package:libac_dart/nbt/impl/CompoundTag.dart';
+import 'package:libac_dart/nbt/impl/IntTag.dart';
+import 'package:libac_dart/nbt/impl/ListTag.dart';
+import 'package:libac_dart/nbt/impl/StringTag.dart';
+import 'package:libacflutter/Constants.dart';
 
 class Settings {
   bool saveSeed = false;
@@ -13,49 +19,71 @@ class Settings {
   bool isDark = true;
   bool isFirstBoot = true;
 
-  void read() {
-    var box = Hive.box("PassTool");
+  bool initialized = false;
 
-    saveSeed = box.get("saveSeed", defaultValue: false);
-    saveLength = box.get("saveLength", defaultValue: false);
-    saveBlacklist = box.get("saveBlacklist", defaultValue: true);
+  Future<void> read() async {
+    CompoundTag tag = await NbtIo.read("PassTool.nbt");
 
-    lastSeed = box.get("seed",
-        defaultValue: ((Random().nextInt(pow(2, 4).toInt() - 1) + 1)).toInt());
-    lastLength = box.get("length", defaultValue: 5);
-    blacklist = box.get("blacklist",
-        defaultValue: [",", ".", "'", "\"", "/", "\\", "|", "#", "&"]);
-    isDark = box.get("dark", defaultValue: true);
+    saveSeed = tag.containsKey("saveSeed")
+        ? NbtUtils.readBoolean(tag, "saveSeed")
+        : false;
+    saveLength = tag.containsKey("saveLength")
+        ? NbtUtils.readBoolean(tag, "saveLength")
+        : false;
+    saveBlacklist = tag.containsKey("saveBlacklist")
+        ? NbtUtils.readBoolean(tag, "saveBlacklist")
+        : true;
+
+    lastSeed = tag.containsKey("seed")
+        ? tag.get("seed")!.asInt()
+        : ((Random().nextInt(pow(2, 4).toInt() - 1) + 1)).toInt();
+
+    lastLength = tag.containsKey("length") ? tag.get("length")!.asInt() : 5;
+
+    if (tag.containsKey("blacklist")) {
+      blacklist = [];
+      for (var str in (tag.get("blacklist")! as ListTag).value) {
+        blacklist.add(str.asString());
+      }
+    } else {
+      blacklist = [",", ".", "'", "\"", "/", "\\", "|", "#", "&"];
+    }
+
+    isDark = tag.containsKey("dark") ? NbtUtils.readBoolean(tag, "dark") : true;
 
     if (lastLength <= 0 || lastLength >= 41) lastLength = 5;
 
-    isFirstBoot = box.get("onboard", defaultValue: true);
+    isFirstBoot = tag.containsKey("onboard")
+        ? NbtUtils.readBoolean(tag, "onboard")
+        : true;
+
+    initialized = true;
   }
 
   void write() {
-    var box = Hive.box("PassTool");
+    CompoundTag ct = CompoundTag();
 
-    box.put("saveSeed", saveSeed);
-    box.put("saveLength", saveLength);
-    box.put("saveBlacklist", saveBlacklist);
+    NbtUtils.writeBoolean(ct, "saveSeed", saveSeed);
+    NbtUtils.writeBoolean(ct, "saveLength", saveLength);
+    NbtUtils.writeBoolean(ct, "saveBlacklist", saveBlacklist);
 
-    if (saveSeed)
-      box.put("seed", lastSeed);
-    else
-      box.delete("seed");
+    if (saveSeed) ct.put("seed", IntTag.valueOf(lastSeed));
 
-    if (saveLength)
-      box.put("length", lastLength);
-    else
-      box.delete(("length"));
+    if (saveLength) ct.put("length", IntTag.valueOf(lastLength));
 
-    if (saveBlacklist)
-      box.put("blacklist", blacklist);
-    else
-      box.delete("blacklist");
+    if (saveBlacklist) {
+      ListTag lst = ListTag();
+      for (var entry in blacklist) {
+        lst.add(StringTag.valueOf(entry));
+      }
 
-    box.put("dark", isDark);
-    box.put("onboard", isFirstBoot);
+      ct.put("blacklist", lst);
+    }
+
+    NbtUtils.writeBoolean(ct, "dark", isDark);
+    NbtUtils.writeBoolean(ct, "onboard", isFirstBoot);
+
+    NbtIo.write("PassTool.nbt", ct);
   }
 }
 
@@ -78,7 +106,10 @@ class SettingsPageState extends State<SettingsPage> {
       settings = arg as Settings;
     }
     return Scaffold(
-      appBar: AppBar(title: const Text("Settings")),
+      appBar: AppBar(
+        title: const Text("Settings"),
+        backgroundColor: LibACFlutterConstants.TITLEBAR_COLOR,
+      ),
       body: Padding(
           padding: EdgeInsets.all(16),
           child: Column(
@@ -89,8 +120,9 @@ class SettingsPageState extends State<SettingsPage> {
                   setState(() {
                     if (value != null) {
                       settings.saveBlacklist = value;
-                    } else
+                    } else {
                       settings.saveBlacklist = false;
+                    }
 
                     settings.write();
                   });
@@ -103,8 +135,9 @@ class SettingsPageState extends State<SettingsPage> {
                     setState(() {
                       if (value != null) {
                         settings.saveLength = value;
-                      } else
+                      } else {
                         settings.saveLength = false;
+                      }
 
                       settings.write();
                     });
@@ -116,8 +149,9 @@ class SettingsPageState extends State<SettingsPage> {
                     setState(() {
                       if (value != null) {
                         settings.saveSeed = value;
-                      } else
+                      } else {
                         settings.saveSeed = false;
+                      }
 
                       settings.write();
                     });

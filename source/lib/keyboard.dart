@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 import 'package:flutter/material.dart';
+import 'package:libacflutter/Constants.dart';
 
-import 'package:flutter/material.dart';
 import 'package:pass_tool/settings.dart';
 
 class BlacklistView extends StatefulWidget {
+  const BlacklistView({super.key});
+
   @override
   _CustomKeyboardState createState() => _CustomKeyboardState();
 }
@@ -90,6 +92,7 @@ class _CustomKeyboardState extends State<BlacklistView> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Blacklist"),
+          backgroundColor: LibACFlutterConstants.TITLEBAR_COLOR,
         ),
         body: GridView.builder(
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
@@ -108,7 +111,7 @@ class _CustomKeyboardState extends State<BlacklistView> {
                     toggleKeySelection(key);
                   },
                   style: ElevatedButton.styleFrom(
-                      primary: isKeySelected(key)
+                      backgroundColor: isKeySelected(key)
                           ? const Color.fromARGB(255, 153, 10, 0)
                           : Color.fromARGB(255, 0, 179, 192),
                       textStyle: TextStyle(fontSize: 32),

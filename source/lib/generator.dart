@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:libacflutter/Constants.dart';
 import 'package:pass_tool/cipherpasslegacy.dart';
 import 'package:pass_tool/dialogbox.dart';
 import 'package:pass_tool/keyboard.dart';
@@ -66,7 +67,7 @@ class GeneratorState extends State<Generator> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void didChangeDependencies() {
     if (!firstLoad) {
       var args = ModalRoute.of(context)!.settings.arguments;
       firstLoad = true;
@@ -89,14 +90,20 @@ class GeneratorState extends State<Generator> {
 
       if (settings.saveBlacklist) {
         blacklistedCharacters = settings.blacklist;
-      } else
+      } else {
         settings.blacklist = blacklistedCharacters;
+      }
 
       isDarkMode = settings.isDark;
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Password Tool'),
+        backgroundColor: LibACFlutterConstants.TITLEBAR_COLOR,
         actions: [
           IconButton(
               icon: Icon(Icons.settings),

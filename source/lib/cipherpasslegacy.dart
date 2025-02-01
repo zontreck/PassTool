@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 import 'package:pass_tool/zhash.dart';
 
 class CipherPasswordLegacy {
