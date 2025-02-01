@@ -49,20 +49,23 @@ Console.WriteLine("name: pass_tool\n" +
 "publish_to: 'none'\n" +
 $"version: {versionInfo}.{patch}\n" +
 "environment:\n" +
-"  sdk: '>=3.1.4 <4.0.0'\n" +
+"  sdk: ^3.6.1\n" +
 "\n\n" +
 "dependencies:\n"  + 
 "  flutter:\n" +
 "    sdk: flutter\n" +
-"  cupertino_icons: ^1.0.2\n" +
+"  cupertino_icons: ^1.0.8\n" +
 "  crypto: ^3.0.3\n" +
-"  hive:\n" +
-"  hive_flutter:\n" + 
+"  libac_dart:\n" +
+"    hosted: https://git.zontreck.com/api/packages/AriasCreations/pub/\n" +
+"    version: ^1.4.012225+0413\n" +
+"  libacflutter:\n" +
+"    hosted: https://git.zontreck.com/api/packages/AriasCreations/pub/\n" +
+"    version: ^1.0.13125+0358\n" +
 "dev_dependencies:\n" +
 "  flutter_test:\n" +
 "    sdk: flutter\n" +
-"  flutter_lints: ^2.0.0\n" +
-"  hive_generator:\n" +
+"  flutter_lints: ^5.0.0\n" +
 "  build_runner:\n" +
 "flutter:\n" +
 "  uses-material-design: true\n"
